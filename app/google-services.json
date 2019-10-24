@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "295941142431",
+    "firebase_url": "https://baatcheat-afc9a.firebaseio.com",
+    "project_id": "baatcheat-afc9a",
+    "storage_bucket": "baatcheat-afc9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295941142431:android:94f451f2082a342869afaa",
+        "android_client_info": {
+          "package_name": "com.example.baatcheat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "295941142431-1eo7ieruichqqv8aetfebm856s8p5as6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.baatcheat",
+            "certificate_hash": "c321ab8b1c9728c62b046a6dfa9e9f5422860c7e"
+          }
+        },
+        {
+          "client_id": "295941142431-lhp0dc2oefc7ibiq33k0n5ojlp6ofi03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw0q_705eZvVwRSiVdKREKnmgeojeA3KQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "295941142431-lhp0dc2oefc7ibiq33k0n5ojlp6ofi03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
