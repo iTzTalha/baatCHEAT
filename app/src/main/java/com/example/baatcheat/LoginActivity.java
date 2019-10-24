@@ -9,12 +9,11 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.Editable;
-import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
@@ -50,9 +49,8 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText phoneNumber;
-    private EditText verificationText;
-    TextView wh_number, text;
+    private EditText phoneNumber, verificationText;
+    private TextView wh_number, text, countdownText, countdownTimer;
     private ImageView reset_text, next_phone_empty, backtologin;
     private Button next_phone, phone_done;
 
@@ -69,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
     String currentUserId;
 
     FirebaseAuth mAuth;
+    FirebaseException exception;
+
+    private CountDownTimer cTimer = null;
+    private long timeleftinmiliseconds = 60000; //1 min
+    private boolean isTimerRusnning = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         reset_text = findViewById(R.id.reset_text);
         phone_done = findViewById(R.id.phone_done);
         verificationText = findViewById(R.id.verificationText);
+        countdownText = findViewById(R.id.countdownText);
+        countdownTimer = findViewById(R.id.countdownTimer);
 
         ccp = findViewById(R.id.CCP);
         ccp.registerPhoneNumberTextView(phoneNumber);
@@ -164,6 +169,8 @@ public class LoginActivity extends AppCompatActivity {
                             TimeUnit.SECONDS,   // Unit of timeout
                             LoginActivity.this,               // Activity (for callback binding)
                             mCallbacks);        // OnVerificationStateChangedCallbacks
+
+
                 }
             }
         });
@@ -202,10 +209,17 @@ public class LoginActivity extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-                    AlertDialog alertDialog = builder.create();
+                    final AlertDialog alertDialog = builder.create();
                     alertDialog.setTitle("baatCHEAT");
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.setCancelable(false);
+                    alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                        }
+                    });
                     alertDialog.show();
-
                     return;
                 }
 
@@ -238,6 +252,9 @@ public class LoginActivity extends AppCompatActivity {
                 verificationText.setVisibility(View.VISIBLE);
 
                 phone_done.setVisibility(View.VISIBLE);
+
+                startTimer();
+
             }
         };
 
@@ -289,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                         .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                               dialog.cancel();
+                                dialog.cancel();
                             }
                         }).setNegativeButton("STOP", new DialogInterface.OnClickListener() {
                     @Override
@@ -311,11 +328,66 @@ public class LoginActivity extends AppCompatActivity {
 
                         phoneNumber.setText("");
                         verificationText.setText("");
+
+                        countdownText.setVisibility(View.GONE);
+                        countdownText.setAlpha(0.5f);
+                        countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
+                        countdownTimer.setVisibility(View.GONE);
+                        cancelTimer();
+
                     }
                 });
-                AlertDialog alertDialog = builder.create();
+                final AlertDialog alertDialog = builder.create();
                 alertDialog.setTitle("baatCHEAT");
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.setCancelable(false);
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                    }
+                });
                 alertDialog.show();
+            }
+        });
+
+        countdownText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (exception  instanceof FirebaseTooManyRequestsException){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setMessage("You're sending too many verification code, Please try again later")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    final AlertDialog alertDialog = builder.create();
+                    alertDialog.setTitle("baatCHEAT");
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.setCancelable(false);
+                    alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                        }
+                    });
+                    alertDialog.show();
+                }else {
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                            str_phoneNumber,        // Phone number to verify
+                            60,                 // Timeout duration
+                            TimeUnit.SECONDS,   // Unit of timeout
+                            LoginActivity.this,               // Activity (for callback binding)
+                            mCallbacks);        // OnVerificationStateChangedCallbacks
+
+                    startTimer();
+                    countdownText.setAlpha(0.5f);
+                    countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
+                }
             }
         });
     }
@@ -351,6 +423,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.getValue() != null) {
                                         //it means user already registered
+                                        cancelTimer();
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
 
@@ -372,6 +445,7 @@ public class LoginActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
 
                                                 if (task.isSuccessful()) {
+                                                    cancelTimer();
                                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                                     finish();
                                                     progressBar.setVisibility(View.GONE);
@@ -381,7 +455,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     Toast.makeText(LoginActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                                                     progressBar.setVisibility(View.GONE);
                                                     verificationText.setText("");
-                                                    phone_done.setEnabled(false);
                                                     next_phone_empty.setVisibility(View.INVISIBLE);
                                                     phone_done.setVisibility(View.VISIBLE);
                                                 }
@@ -399,7 +472,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            phone_done.setEnabled(false);
                             phone_done.setVisibility(View.VISIBLE);
                             next_phone_empty.setVisibility(View.INVISIBLE);
                             shakeItBaby();
@@ -411,9 +483,38 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    //start timer function
+    void startTimer() {
+        if (isTimerRusnning) {
+            countdownText.setVisibility(View.VISIBLE);
+            countdownTimer.setVisibility(View.VISIBLE);
+            countdownText.setClickable(false);
+
+            cTimer = new CountDownTimer(60000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    countdownTimer.setText("" + millisUntilFinished / 1000);
+                    //here you can have your logic to set text to edittext
+                }
+
+                public void onFinish() {
+                    countdownText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    countdownTimer.setVisibility(View.VISIBLE);
+                    countdownTimer.setVisibility(View.GONE);
+                    countdownText.setAlpha(1f);
+                    countdownText.setClickable(true);
+                    cancelTimer();
+                }
+            };
+            cTimer.start();
+        }
+    }
+
+
+    //cancel timer
+    void cancelTimer() {
+        if (cTimer != null) {
+            cTimer.cancel();
+        }
     }
 }
 
