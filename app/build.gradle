@@ -35,16 +35,12 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
+    //Material Edit Text
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
     //Circle Image View
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     // Country Code Picker
     implementation 'com.github.joielechong:countrycodepicker:2.4.1'
-
-    // loading button
-    implementation 'br.com.simplepass:loading-button-android:2.1.5'
-    implementation 'com.google.android.material:material:1.0.0'
-
-    //Pin View
-    implementation 'com.github.GoodieBag:Pinview:v1.4'
 }

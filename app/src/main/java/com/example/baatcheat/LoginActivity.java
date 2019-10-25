@@ -44,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
@@ -69,9 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseException exception;
 
-    private CountDownTimer cTimer = null;
-    private long timeleftinmiliseconds = 60000; //1 min
-    private boolean isTimerRusnning = true;
+    private CountDownTimer cTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -356,13 +355,35 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (exception  instanceof FirebaseTooManyRequestsException){
+                if (exception instanceof FirebaseTooManyRequestsException) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setMessage("You're sending too many verification code, Please try again later")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
+                                    wh_number.setText("What's your mobile number?");
+                                    text.setText("Please confirm your country code and enter your mobile number.");
+                                    backtologin.setVisibility(View.GONE);
+
+                                    phoneNumber.setVisibility(View.VISIBLE);
+                                    ccp.setVisibility(View.VISIBLE);
+                                    reset_text.setVisibility(View.GONE);
+
+                                    progressBar.setVisibility(View.GONE);
+                                    next_phone_empty.setVisibility(View.GONE);
+                                    next_phone.setVisibility(View.VISIBLE);
+                                    phone_done.setVisibility(View.INVISIBLE);
+
+                                    verificationText.setVisibility(View.GONE);
+
+                                    phoneNumber.setText("");
+                                    verificationText.setText("");
+
+                                    countdownText.setVisibility(View.GONE);
+                                    countdownText.setAlpha(0.5f);
+                                    countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
+                                    countdownTimer.setVisibility(View.GONE);
+                                    cancelTimer();
                                 }
                             });
                     final AlertDialog alertDialog = builder.create();
@@ -376,7 +397,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                     alertDialog.show();
-                }else {
+                } else {
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             str_phoneNumber,        // Phone number to verify
                             60,                 // Timeout duration
@@ -385,8 +406,6 @@ public class LoginActivity extends AppCompatActivity {
                             mCallbacks);        // OnVerificationStateChangedCallbacks
 
                     startTimer();
-                    countdownText.setAlpha(0.5f);
-                    countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
                 }
             }
         });
@@ -485,36 +504,36 @@ public class LoginActivity extends AppCompatActivity {
 
     //start timer function
     void startTimer() {
-        if (isTimerRusnning) {
-            countdownText.setVisibility(View.VISIBLE);
-            countdownTimer.setVisibility(View.VISIBLE);
-            countdownText.setClickable(false);
+        cTimer = new CountDownTimer(30000, 1000) {
+            public void onTick(long millisUntilFinished) {
 
-            cTimer = new CountDownTimer(60000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    countdownTimer.setText("" + millisUntilFinished / 1000);
-                    //here you can have your logic to set text to edittext
-                }
+                int seconds = (int) (millisUntilFinished / 1000);
+                String timeformat = String.format(Locale.getDefault(), "%02d", seconds);
 
-                public void onFinish() {
-                    countdownText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    countdownTimer.setVisibility(View.VISIBLE);
-                    countdownTimer.setVisibility(View.GONE);
-                    countdownText.setAlpha(1f);
-                    countdownText.setClickable(true);
-                    cancelTimer();
-                }
-            };
-            cTimer.start();
-        }
+                countdownTimer.setText(timeformat);
+
+            }
+
+            public void onFinish() {
+                countdownText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                countdownTimer.setVisibility(View.VISIBLE);
+                countdownTimer.setVisibility(View.GONE);
+                countdownText.setAlpha(1f);
+                countdownText.setClickable(true);
+                cTimer.cancel();
+            }
+        }.start();
+        countdownText.setAlpha(0.5f);
+        countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
+        countdownText.setClickable(false);
+        countdownText.setVisibility(View.VISIBLE);
+        countdownTimer.setVisibility(View.VISIBLE);
     }
 
 
     //cancel timer
     void cancelTimer() {
-        if (cTimer != null) {
             cTimer.cancel();
-        }
     }
 }
 
