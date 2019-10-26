@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -20,10 +21,12 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +52,9 @@ import java.util.concurrent.TimeUnit;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    private RelativeLayout relativeLayout;
+    private boolean isVerificationRunning;
 
     private EditText phoneNumber, verificationText;
     private TextView wh_number, text, countdownText, countdownTimer;
@@ -76,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        relativeLayout = findViewById(R.id.relativeLayout);
 
         phoneNumber = findViewById(R.id.phone_number);
         wh_number = findViewById(R.id.wh_number);
@@ -171,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 }
+                hideKeyboard(LoginActivity.this);
             }
         });
 
@@ -254,6 +263,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 startTimer();
 
+                isVerificationRunning = true;
             }
         };
 
@@ -287,6 +297,8 @@ public class LoginActivity extends AppCompatActivity {
                 next_phone_empty.setVisibility(View.VISIBLE);
                 phone_done.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
+
+                hideKeyboard(LoginActivity.this);
 
                 String verificationCode = verificationText.getText().toString();
 
@@ -333,6 +345,7 @@ public class LoginActivity extends AppCompatActivity {
                         countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
                         countdownTimer.setVisibility(View.GONE);
                         cancelTimer();
+                        isVerificationRunning = false;
 
                     }
                 });
@@ -407,6 +420,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     startTimer();
                 }
+            }
+        });
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard(LoginActivity.this);
             }
         });
     }
@@ -504,7 +524,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //start timer function
     void startTimer() {
-        cTimer = new CountDownTimer(30000, 1000) {
+        cTimer = new CountDownTimer(60000, 1000) {
             public void onTick(long millisUntilFinished) {
 
                 int seconds = (int) (millisUntilFinished / 1000);
@@ -534,6 +554,50 @@ public class LoginActivity extends AppCompatActivity {
     //cancel timer
     void cancelTimer() {
             cTimer.cancel();
+    }
+
+    //Closing keyboard
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isVerificationRunning){
+            wh_number.setText("What's your mobile number?");
+            text.setText("Please confirm your country code and enter your mobile number.");
+            backtologin.setVisibility(View.GONE);
+
+            phoneNumber.setVisibility(View.VISIBLE);
+            ccp.setVisibility(View.VISIBLE);
+            reset_text.setVisibility(View.GONE);
+
+            progressBar.setVisibility(View.GONE);
+            next_phone_empty.setVisibility(View.GONE);
+            next_phone.setVisibility(View.VISIBLE);
+            phone_done.setVisibility(View.INVISIBLE);
+
+            verificationText.setVisibility(View.GONE);
+
+            phoneNumber.setText("");
+            verificationText.setText("");
+
+            countdownText.setVisibility(View.GONE);
+            countdownText.setAlpha(0.5f);
+            countdownText.setTextColor(getResources().getColor(R.color.colorTextDefault));
+            countdownTimer.setVisibility(View.GONE);
+            cancelTimer();
+            isVerificationRunning = false;
+        }else {
+            super.onBackPressed();
+        }
     }
 }
 
