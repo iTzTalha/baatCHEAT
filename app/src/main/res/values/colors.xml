@@ -3,8 +3,12 @@
     <color name="colorPrimary">#2680EB</color>
     <color name="colorPrimaryDark">#1561BA</color>
     <color name="colorAccent">#2680EB</color>
+
     <color name="colorBlack">#141414</color>
     <color name="colorWhite">#fff</color>
     <color name="colorTextDefault">#808080</color>
+
+    <color name="search_on">#EFF0F1</color>
+    <color name="search_off">#F3F4F5</color>
 
 </resources>
