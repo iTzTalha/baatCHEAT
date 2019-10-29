@@ -1,5 +1,6 @@
 package com.example.baatcheat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,11 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -16,6 +22,7 @@ public class StartActivity extends AppCompatActivity {
 
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,36 +43,34 @@ public class StartActivity extends AppCompatActivity {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        checksplashscreen();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         if (currentUser != null) {
+            currentUserId = mAuth.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+            databaseReference.child(currentUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child("username").exists()){
+                        Intent mainIntent = new Intent(StartActivity.this,MainActivity.class);
+                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(mainIntent);
+                    }else {
+                        Intent putUsernameIntent = new Intent(StartActivity.this,VerificationActivity.class);
+                        putUsernameIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(putUsernameIntent);
+                    }
+                }
 
-            SendUserToMainActivity();
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        } else {
-            mAuth.signOut();
+                }
+            });
         }
-
     }
-
-    private void SendUserToMainActivity() {
-        Intent mainActivity = new Intent(StartActivity.this, MainActivity.class);
-        mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainActivity);
-        finish();
-    }
-
-    private void checksplashscreen() {
-        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                .getBoolean("isFirstRun", true);
-
-        if (!isFirstRun) {
-            //show start activity
-            startActivity(new Intent(StartActivity.this, LoginActivity.class));
-        }
-
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).commit();
-    }
-
 }

@@ -44,6 +44,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import java.util.HashMap;
@@ -75,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseException exception;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private CountDownTimer cTimer;
 
@@ -125,16 +127,16 @@ public class LoginActivity extends AppCompatActivity {
                     reset_text.setVisibility(View.GONE);
 
                     next_phone.setVisibility(View.VISIBLE);
-                    next_phone_empty.setVisibility(View.INVISIBLE);
+                    next_phone_empty.setVisibility(View.GONE);
 
-                    progressBar.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.GONE);
 
                 } else {
 
                     reset_text.setVisibility(View.VISIBLE);
 
                     next_phone.setVisibility(View.VISIBLE);
-                    next_phone_empty.setVisibility(View.INVISIBLE);
+                    next_phone_empty.setVisibility(View.GONE);
 
                     next_phone.setEnabled(true);
                     next_phone.setBackgroundResource(R.drawable.btn_next_phone);
@@ -413,9 +415,28 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.getValue() != null) {
                                         //it means user already registered
-                                        cancelTimer();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        finish();
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+                                        databaseReference.child(currentUserId).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.child("username").exists()){
+                                                    cancelTimer();
+                                                    Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+                                                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(mainIntent);
+                                                }else {
+                                                    cancelTimer();
+                                                    Intent putUsernameIntent = new Intent(LoginActivity.this,VerificationActivity.class);
+                                                    putUsernameIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(putUsernameIntent);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
 
                                     } else {
                                         //It is new users
@@ -428,7 +449,6 @@ public class LoginActivity extends AppCompatActivity {
                                         HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put("id", currentUserId);
                                         hashMap.put("phone", str_phoneNumber);
-                                        hashMap.put("imageurl", "https://firebasestorage.googleapis.com/v0/b/fir-5efa8.appspot.com/o/profile-placeholder.png?alt=media&token=0f72e718-b845-4e7b-865c-76d08340f9a8");
 
                                         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -436,7 +456,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 if (task.isSuccessful()) {
                                                     cancelTimer();
-                                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                    Intent putUsernameIntent = new Intent(LoginActivity.this,VerificationActivity.class);
+                                                    putUsernameIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(putUsernameIntent);
                                                     finish();
                                                     progressBar.setVisibility(View.GONE);
 
