@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.ContactsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Contacts" />
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground">
 
-</FrameLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground">
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bar"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/permissionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/roboto"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        android:text="To help you connect with friends and family, allow baatCHEAT to access to your contacts."
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
