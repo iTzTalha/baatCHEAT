@@ -182,4 +182,5 @@ public class VerificationActivity extends AppCompatActivity {
         finish();
         super.onBackPressed();
     }
+
 }

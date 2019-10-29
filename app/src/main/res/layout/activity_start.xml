@@ -11,11 +11,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/baatcheat_icon"
+            android:layout_marginTop="100dp"/>
+
         <TextView
             android:id="@+id/baatcheat_Text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="181dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/roboto_light"
             android:text="Welcome to"
             android:textSize="34sp"
@@ -49,12 +56,13 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_getStarted"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="75dp"
-        android:background="@drawable/btn_get_started" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/splashProgress"-->
+<!--        style="?android:attr/progressBarStyleHorizontal"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginBottom="75dp"/>-->
 </RelativeLayout>

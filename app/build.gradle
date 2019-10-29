@@ -51,4 +51,7 @@ dependencies {
     def nav_version = "2.1.0"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    //Intent Animation
+    implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
 }
