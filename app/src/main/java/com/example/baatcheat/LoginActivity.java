@@ -414,29 +414,35 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.getValue() != null) {
+
+                                        cancelTimer();
+                                        Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+                                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(mainIntent);
+
                                         //it means user already registered
-                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-                                        databaseReference.child(currentUserId).addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.child("username").exists()){
-                                                    cancelTimer();
-                                                    Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
-                                                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(mainIntent);
-                                                }else {
-                                                    cancelTimer();
-                                                    Intent putUsernameIntent = new Intent(LoginActivity.this,VerificationActivity.class);
-                                                    putUsernameIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(putUsernameIntent);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                            }
-                                        });
+//                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+//                                        databaseReference.child(currentUserId).addValueEventListener(new ValueEventListener() {
+//                                            @Override
+//                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                                if(dataSnapshot.child("username").exists()){
+//                                                    cancelTimer();
+//                                                    Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+//                                                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                                    startActivity(mainIntent);
+//                                                }else {
+//                                                    cancelTimer();
+//                                                    Intent putUsernameIntent = new Intent(LoginActivity.this,VerificationActivity.class);
+//                                                    putUsernameIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                                    startActivity(putUsernameIntent);
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                            }
+//                                        });
 
                                     } else {
                                         //It is new users
@@ -449,6 +455,7 @@ public class LoginActivity extends AppCompatActivity {
                                         HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put("id", currentUserId);
                                         hashMap.put("phone", str_phoneNumber);
+                                        hashMap.put("username", phoneNumber.getText().toString().trim());
 
                                         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -456,7 +463,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 if (task.isSuccessful()) {
                                                     cancelTimer();
-                                                    Intent putUsernameIntent = new Intent(LoginActivity.this,VerificationActivity.class);
+                                                    Intent putUsernameIntent = new Intent(LoginActivity.this,MainActivity.class);
                                                     putUsernameIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                     startActivity(putUsernameIntent);
                                                     finish();

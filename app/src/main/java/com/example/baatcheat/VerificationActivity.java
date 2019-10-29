@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -179,8 +180,20 @@ public class VerificationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        mAuth.signOut();
         finish();
         super.onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        mAuth.signOut();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        mAuth.signOut();
+        super.onStop();
+    }
 }
