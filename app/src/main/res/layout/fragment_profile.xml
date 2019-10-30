@@ -120,7 +120,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto"
-                android:text="Bio"
+                android:text="Phone number"
                 android:textColor="#080708"
                 android:textSize="16sp" />
 
@@ -130,7 +130,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="1.5dp"
                 android:fontFamily="@font/roboto"
-                android:text="Add your description here"
+                android:text="Phone"
                 android:textSize="13.5sp" />
 
             <View
@@ -157,7 +157,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto"
-                android:text="Phone number"
+                android:text="Bio"
                 android:textColor="#080708"
                 android:textSize="16sp" />
 
@@ -167,7 +167,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="1.5dp"
                 android:fontFamily="@font/roboto"
-                android:text="Phone"
+                android:text="Add your description here"
                 android:textSize="13.5sp" />
 
         </LinearLayout>
@@ -233,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto"
-                    android:text="Edit username"
+                    android:text="Logout"
                     android:textColor="#080708"
                     android:textSize="16sp" />
 
