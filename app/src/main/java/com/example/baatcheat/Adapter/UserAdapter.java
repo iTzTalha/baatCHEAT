@@ -51,6 +51,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
 
         holder.username.setText(users.getUsername());
+        holder.phoneNumber.setText(users.getPhone());
 //        Glide.with(mContext).load(users.getImageurl()).into(holder.image_Profile);
 
     }
@@ -62,7 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView username;
+        public TextView username,phoneNumber;
         public CircleImageView image_Profile;
 
         public ViewHolder(@NonNull View itemView) {
@@ -70,6 +71,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             username = itemView.findViewById(R.id.username);
             image_Profile = itemView.findViewById(R.id.image_profile);
+            phoneNumber = itemView.findViewById(R.id.phoneNumber);
         }
     }
 }

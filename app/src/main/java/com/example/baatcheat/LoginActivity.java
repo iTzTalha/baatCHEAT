@@ -455,7 +455,7 @@ public class LoginActivity extends AppCompatActivity {
                                         HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put("id", currentUserId);
                                         hashMap.put("phone", str_phoneNumber);
-                                        hashMap.put("username", phoneNumber.getText().toString().trim());
+                                        hashMap.put("username", str_phoneNumber.trim());
 
                                         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

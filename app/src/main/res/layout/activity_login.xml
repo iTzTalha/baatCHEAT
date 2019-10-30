@@ -51,40 +51,56 @@
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
-            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
-                android:id="@+id/CCP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:ccp_defaultNameCode="IN"
-                app:ccp_enableHint="false"
-                app:ccp_hideNameCode="true"
-                app:ccp_showFlag="false"
-                app:ccp_showFullName="false" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                    android:id="@+id/CCP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:ccp_defaultNameCode="IN"
+                    app:ccp_enableHint="false"
+                    app:ccp_hideNameCode="true"
+                    app:ccp_showFlag="false"
+                    app:ccp_showFullName="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/phone_number"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            <EditText
-                android:id="@+id/phone_number"
-                android:layout_width="227dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/wh_number"
-                android:layout_gravity="center_vertical"
-                android:background="@null"
-                android:hint="Phone number"
-                android:inputType="number"
-                android:paddingStart="10dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:textCursorDrawable="@drawable/color_cursor" />
+                <EditText
+                    android:id="@+id/phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="75dp"
+                    android:background="@null"
+                    android:hint="Phone number"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/reset_text"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/ic_close_24px" />
+                <ImageView
+                    android:id="@+id/reset_text"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/ic_close_24px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
