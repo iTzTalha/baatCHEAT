@@ -15,7 +15,16 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="0dp"
             android:background="?android:attr/windowBackground">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Contacts"
+                android:textColor="#080708"
+                android:textSize="25sp" />
 
         </androidx.appcompat.widget.Toolbar>
 
