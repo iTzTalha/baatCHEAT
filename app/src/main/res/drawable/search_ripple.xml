@@ -13,7 +13,7 @@
     <item>
         <shape android:shape="rectangle">
             <!-- put your background color here-->
-            <solid android:color="@color/search_off" />
+            <solid android:color="@color/search_on" />
         </shape>
     </item>
 

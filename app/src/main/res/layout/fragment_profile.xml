@@ -5,31 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ProfileFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/backtologin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_back" />
-
-        </RelativeLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
     <LinearLayout
         android:id="@+id/profileContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
