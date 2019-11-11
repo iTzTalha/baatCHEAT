@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+
 public class StartActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -46,6 +47,7 @@ public class StartActivity extends AppCompatActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
+
                     }else {
 
                         Intent intent = new Intent(StartActivity.this, LoginActivity.class);
@@ -64,6 +66,7 @@ public class StartActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
+
             }else {
 
                 Intent intent = new Intent(StartActivity.this, LoginActivity.class);

@@ -111,7 +111,7 @@
             android:fontFamily="@font/roboto"
             android:paddingLeft="25dp"
             android:text="Please confirm your country code and enter your mobile number."
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/verificationText"

@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class ProfileFragment extends Fragment {
 
+private TextView tv_username;
     private LinearLayout Username;
     private LinearLayout logout;
 
@@ -55,6 +56,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        tv_username = view.findViewById(R.id.tv_username);
         Username = view.findViewById(R.id.username);
         logout = view.findViewById(R.id.logout);
 
@@ -98,6 +100,7 @@ public class ProfileFragment extends Fragment {
 
                 User users = dataSnapshot.getValue(User.class);
                 Editusername.setText(users.getUsername());
+                tv_username.setText(users.getUsername());
 //                editBio.setText(users.getBio());
 //                Glide.with(getApplicationContext()).load(users.getImageurl()).into(imageView);
 

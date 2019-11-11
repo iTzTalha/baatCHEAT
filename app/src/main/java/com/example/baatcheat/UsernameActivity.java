@@ -96,10 +96,10 @@ public class UsernameActivity extends AppCompatActivity {
         spannableString1.setSpan(boldSpan1, 21, 25, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         text2.setText(spannableString1);
 
-        String str_text1 = ("You can use a-z,A-Z,0-9 and underscores.");
+        String str_text1 = ("You can use a-z, A-Z, 0-9 and underscores.");
         SpannableString spannableString2 = new SpannableString(str_text1);
         StyleSpan boldSpan2 = new StyleSpan(Typeface.BOLD);
-        spannableString2.setSpan(boldSpan2, 12, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString2.setSpan(boldSpan2, 12, 25, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         text1.setText(spannableString2);
     }
 
