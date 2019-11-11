@@ -116,9 +116,9 @@ public class ContactsFragment extends Fragment {
                 phone = ISOPrefix + phone;
             }
 
-
+String bio="";
             currentUserId = mAuth.getUid();
-            User mContacts = new User(currentUserId, name, phone);
+            User mContacts = new User(currentUserId, name, phone,bio);
             contactList.add(mContacts);
             getUserDetails(mContacts);
         }
@@ -139,8 +139,8 @@ public class ContactsFragment extends Fragment {
                         if (childSnapshot.child("username").getValue() != null)
                             name = childSnapshot.child("username").getValue().toString();
 
-
-                        User mUser = new User(currentUserId, name, phone);
+String bio="";
+                        User mUser = new User(currentUserId, name, phone,bio);
                         if (name.equals(phone))
                             for (User mContactIterator : contactList) {
                                 if (mContactIterator.getPhone().equals(mUser.getPhone())) {

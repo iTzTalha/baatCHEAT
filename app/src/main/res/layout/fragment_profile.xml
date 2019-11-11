@@ -26,7 +26,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Username"
             android:textColor="#080708"
             android:textSize="25sp" />
     </LinearLayout>
@@ -106,6 +105,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -114,12 +114,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/myphonenumner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto"
-                android:text="Phone number"
                 android:textColor="#080708"
                 android:textSize="16sp" />
 
@@ -143,6 +143,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -152,12 +153,15 @@
             android:paddingBottom="7dp">
 
             <TextView
+                android:id="@+id/myBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto"
                 android:text="Bio"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textColor="#080708"
                 android:textSize="16sp" />
 

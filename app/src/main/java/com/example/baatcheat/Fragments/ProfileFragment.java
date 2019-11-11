@@ -19,9 +19,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.baatcheat.BioActivity;
 import com.example.baatcheat.LoginActivity;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
+import com.example.baatcheat.ShowNumberActivity;
 import com.example.baatcheat.StartActivity;
 import com.example.baatcheat.UsernameActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 /**
@@ -37,9 +40,11 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class ProfileFragment extends Fragment {
 
-private TextView tv_username;
+private TextView tv_username,myPhoneNumner,myBio;
     private LinearLayout Username;
+    private LinearLayout phone;
     private LinearLayout logout;
+    private LinearLayout bio;
 
     private TextView fixedText,Editusername;
 
@@ -57,7 +62,11 @@ private TextView tv_username;
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         tv_username = view.findViewById(R.id.tv_username);
+        myPhoneNumner = view.findViewById(R.id.myphonenumner);
+        myBio = view.findViewById(R.id.myBio);
         Username = view.findViewById(R.id.username);
+        phone = view.findViewById(R.id.phone);
+        bio = view.findViewById(R.id.bio);
         logout = view.findViewById(R.id.logout);
 
         fixedText = view.findViewById(R.id.fixedText);
@@ -73,6 +82,22 @@ private TextView tv_username;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UsernameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowNumberActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BioActivity.class);
                 startActivity(intent);
             }
         });
@@ -101,6 +126,10 @@ private TextView tv_username;
                 User users = dataSnapshot.getValue(User.class);
                 Editusername.setText(users.getUsername());
                 tv_username.setText(users.getUsername());
+                myPhoneNumner.setText(users.getPhone());
+                myBio.setText(users.getBio());
+
+
 //                editBio.setText(users.getBio());
 //                Glide.with(getApplicationContext()).load(users.getImageurl()).into(imageView);
 
@@ -112,5 +141,4 @@ private TextView tv_username;
             }
         });
     }
-
 }

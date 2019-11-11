@@ -4,14 +4,24 @@ public class User {
     private String id;
     private String username;
     private String phone;
+    private String bio;
 
-    public User(String id, String username,String phone) {
+    public User(String id, String username,String phone, String bio) {
         this.id = id;
         this.username = username;
         this.phone = phone;
+        this.bio = bio;
     }
 
     public User() {
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getPhone() {
