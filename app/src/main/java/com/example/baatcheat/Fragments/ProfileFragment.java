@@ -128,9 +128,6 @@ private TextView tv_username,myPhoneNumner,myBio;
                 tv_username.setText(users.getUsername());
                 myPhoneNumner.setText(users.getPhone());
                 myBio.setText(users.getBio());
-
-
-//                editBio.setText(users.getBio());
 //                Glide.with(getApplicationContext()).load(users.getImageurl()).into(imageView);
 
             }
