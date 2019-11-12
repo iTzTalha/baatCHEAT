@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.0'
-    implementation 'com.google.firebase:firebase-firestore:21.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -48,4 +48,7 @@ dependencies {
     def nav_version = "2.1.0"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    //DotsLoader
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
 }

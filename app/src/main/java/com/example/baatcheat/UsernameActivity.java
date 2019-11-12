@@ -2,6 +2,7 @@ package com.example.baatcheat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
 import com.example.baatcheat.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +36,8 @@ public class UsernameActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
 
+    TashieLoader tashieLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,8 @@ public class UsernameActivity extends AppCompatActivity {
         done = findViewById(R.id.done);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        tashieLoader = findViewById(R.id.lazyLoader);
 
         updateEditTextAtStart();
         spannableBoldText();
@@ -69,6 +76,7 @@ public class UsernameActivity extends AppCompatActivity {
                             return;
                         } else {
                             updateProfile(username.getText().toString().replace(" ","").trim());
+                            DottedLoader();
                             finish();
                         }
                     }
@@ -111,6 +119,7 @@ public class UsernameActivity extends AppCompatActivity {
 
                 User users = dataSnapshot.getValue(User.class);
                 username.setText(users.getUsername());
+                tashieLoader.setVisibility(View.GONE);
 
             }
 
@@ -129,5 +138,20 @@ public class UsernameActivity extends AppCompatActivity {
         hashMap.put("username", username);
 
         reference.updateChildren(hashMap);
+    }
+
+    void DottedLoader(){
+        TashieLoader tashie = new TashieLoader(
+                this, 5,
+                30, 10,
+                ContextCompat.getColor(this, R.color.colorPrimaryDark));
+
+        tashie.setAnimDuration(500);
+        tashie.setAnimDelay(100);
+        tashie.setInterpolator(new LinearInterpolator());
+
+        tashieLoader.addView(tashie);
+        tashieLoader.setVisibility(View.VISIBLE);
+
     }
 }

@@ -104,4 +104,17 @@
 
     </LinearLayout>
 
+    <com.agrawalsuneet.dotsloader.loaders.TashieLoader
+        android:id="@+id/lazyLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tashieloader_animDelay="200"
+        app:tashieloader_animDur="500"
+        app:tashieloader_dotsColor="@color/colorPrimary"
+        app:tashieloader_dotsDist="8dp"
+        app:tashieloader_dotsRadius="10dp"
+        app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
+        app:tashieloader_noOfDots="3"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>

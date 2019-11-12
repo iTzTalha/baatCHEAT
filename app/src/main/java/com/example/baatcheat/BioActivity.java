@@ -2,12 +2,16 @@ package com.example.baatcheat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.agrawalsuneet.dotsloader.loaders.LazyLoader;
+import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
 import com.example.baatcheat.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +30,8 @@ public class BioActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
 
+    TashieLoader tashieLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class BioActivity extends AppCompatActivity {
         Bio = findViewById(R.id.bio);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        tashieLoader = findViewById(R.id.lazyLoader);
 
         fillBioText();
 
@@ -51,8 +59,10 @@ public class BioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateBio();
+                DottedLoader();
             }
         });
+
     }
 
     private void fillBioText() {
@@ -63,6 +73,7 @@ public class BioActivity extends AppCompatActivity {
 
                 User users = dataSnapshot.getValue(User.class);
                 Bio.setText(users.getBio());
+                tashieLoader.setVisibility(View.GONE);
             }
 
             @Override
@@ -83,5 +94,20 @@ public class BioActivity extends AppCompatActivity {
         reference.updateChildren(hashMap);
 
         finish();
+    }
+
+    void DottedLoader(){
+        TashieLoader tashie = new TashieLoader(
+                this, 5,
+                30, 10,
+                ContextCompat.getColor(this, R.color.colorPrimaryDark));
+
+        tashie.setAnimDuration(500);
+        tashie.setAnimDelay(100);
+        tashie.setInterpolator(new LinearInterpolator());
+
+        tashieLoader.addView(tashie);
+        tashieLoader.setVisibility(View.VISIBLE);
+
     }
 }

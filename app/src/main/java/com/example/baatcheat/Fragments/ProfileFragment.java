@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,10 +16,12 @@ import androidx.navigation.ui.NavigationUI;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
 import com.example.baatcheat.BioActivity;
 import com.example.baatcheat.LoginActivity;
 import com.example.baatcheat.Model.User;
@@ -50,6 +53,8 @@ private TextView tv_username,myPhoneNumner,myBio;
 
     private FirebaseAuth mAuth;
 
+    TashieLoader tashieLoader;
+
     FirebaseUser firebaseUser;
     public ProfileFragment() {
         // Required empty public constructor
@@ -76,6 +81,9 @@ private TextView tv_username,myPhoneNumner,myBio;
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        tashieLoader = view.findViewById(R.id.lazyLoader);
+
+        DottedLoader();
         updateProfileInfo();
 
         Username.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +136,7 @@ private TextView tv_username,myPhoneNumner,myBio;
                 tv_username.setText(users.getUsername());
                 myPhoneNumner.setText(users.getPhone());
                 myBio.setText(users.getBio());
+                tashieLoader.setVisibility(View.GONE);
 //                Glide.with(getApplicationContext()).load(users.getImageurl()).into(imageView);
 
             }
@@ -137,5 +146,20 @@ private TextView tv_username,myPhoneNumner,myBio;
 
             }
         });
+    }
+
+    void DottedLoader(){
+        TashieLoader tashie = new TashieLoader(
+                getContext(), 5,
+                30, 10,
+                ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+
+        tashie.setAnimDuration(500);
+        tashie.setAnimDelay(100);
+        tashie.setInterpolator(new LinearInterpolator());
+
+        tashieLoader.addView(tashie);
+        tashieLoader.setVisibility(View.VISIBLE);
+
     }
 }
