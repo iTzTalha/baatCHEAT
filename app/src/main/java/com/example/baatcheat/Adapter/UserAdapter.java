@@ -2,21 +2,23 @@ package com.example.baatcheat.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.baatcheat.MessageActivity;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -27,8 +29,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context mContext;
     private List<User> mUsers;
     private Dialog mDialog;
-
-    FirebaseUser firebaseUser;
 
     public UserAdapter(Context mContext, List<User> mUsers) {
         this.mContext = mContext;
@@ -45,36 +45,42 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         ViewHolder mviewHolder = new ViewHolder(view);
 
-        //dialog ini
-        mDialog = new Dialog(mContext);
-        mDialog.setContentView(R.layout.dialog_contact);
-        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         return mviewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         final User users = mUsers.get(position);
 
 
         holder.username.setText(users.getUsername());
         holder.phoneNumber.setText(users.getPhone());
-//        Glide.with(mContext).load(users.getImageurl()).into(holder.image_Profile);
+//        Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView dialog_username = mDialog.findViewById(R.id.dialog_username);
                 TextView dialog_phone = mDialog.findViewById(R.id.dialog_phone);
                 ImageView dialog_imageProfile = mDialog.findViewById(R.id.dialog_ImageProfile);
+                ImageView normalchat = mDialog.findViewById(R.id.normalchat);
+                ImageView audiochat = mDialog.findViewById(R.id.audiochat);
+                ImageView videochat = mDialog.findViewById(R.id.videochat);
 
                 dialog_username.setText(users.getUsername());
-                dialog_phone.setText(users.getPhone());
+                dialog_phone.setText(users.getBio());
                 mDialog.show();
+
+                normalchat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(mContext, MessageActivity.class);
+                        i.putExtra("userid",users.getId());
+                        mContext.startActivity(i);
+                        mDialog.cancel();
+                    }
+                });
             }
         });
 
@@ -89,6 +95,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public TextView username, phoneNumber;
         public CircleImageView image_Profile;
+        public RelativeLayout mLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +103,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             username = itemView.findViewById(R.id.username);
             image_Profile = itemView.findViewById(R.id.image_profile);
             phoneNumber = itemView.findViewById(R.id.phoneNumber);
+            mLayout = itemView.findViewById(R.id.mLayout);
+
+            //dialog ini
+            mDialog = new Dialog(mContext);
+            mDialog.setContentView(R.layout.dialog_contact);
+            mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 }

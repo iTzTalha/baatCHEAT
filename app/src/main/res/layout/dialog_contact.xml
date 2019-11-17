@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_Contact"
     android:layout_width="340dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:id="@+id/dialog_Contact">
+    android:layout_gravity="center">
 
     <LinearLayout
-        android:layout_marginTop="55dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
         android:background="@drawable/dialog_bg"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -17,30 +17,67 @@
             android:id="@+id/dialog_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/roboto"
             android:text="Contact Name"
             android:textColor="#080708"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/roboto"
-            android:layout_marginTop="40dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/dialog_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone Number"
-            android:textColor="#080708"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/roboto"
-            android:layout_marginBottom="10dp"/>
+            android:hint="No bio written yet"
+            android:textColorHint="#080708"
+            android:textColor="#080708" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/normalchat"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/normalchat"
+                android:background="?actionBarItemBackground"/>
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/audiochat"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/audiochat"
+                android:background="?actionBarItemBackground"
+                android:layout_marginStart="50dp"/>
+
+            <ImageView
+                android:id="@+id/videochat"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/videochat"
+                android:background="?actionBarItemBackground"
+                android:layout_marginStart="50dp"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
-   <de.hdodenhof.circleimageview.CircleImageView
-       android:id="@+id/dialog_ImageProfile"
-       android:layout_width="90dp"
-       android:layout_height="90dp"
-       android:src="@drawable/profile_holder"
-       android:layout_centerHorizontal="true"
-       android:layout_alignParentTop="true"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dialog_ImageProfile"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile_holder" />
 
 </RelativeLayout>

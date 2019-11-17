@@ -51,4 +51,8 @@ dependencies {
 
     //DotsLoader
     implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+
+    //Glide - Image loading and Caching
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }

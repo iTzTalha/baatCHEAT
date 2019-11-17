@@ -51,8 +51,6 @@ public class ContactsFragment extends Fragment {
     private UserAdapter userAdapter;
     private List<User> userList, contactList;
 
-    String currentUserId;
-
     FirebaseAuth mAuth;
 
     ProgressBar progressBar;
@@ -115,10 +113,7 @@ public class ContactsFragment extends Fragment {
             if (!String.valueOf(phone.charAt(0)).equals("+")) {
                 phone = ISOPrefix + phone;
             }
-
-String bio="";
-            currentUserId = mAuth.getUid();
-            User mContacts = new User(currentUserId, name, phone,bio);
+            User mContacts = new User("", name, phone, "","");
             contactList.add(mContacts);
             getUserDetails(mContacts);
         }
@@ -139,8 +134,8 @@ String bio="";
                         if (childSnapshot.child("username").getValue() != null)
                             name = childSnapshot.child("username").getValue().toString();
 
-String bio="";
-                        User mUser = new User(currentUserId, name, phone,bio);
+
+                        User mUser = new User(childSnapshot.getKey(), name, phone, "","");
                         if (name.equals(phone))
                             for (User mContactIterator : contactList) {
                                 if (mContactIterator.getPhone().equals(mUser.getPhone())) {
