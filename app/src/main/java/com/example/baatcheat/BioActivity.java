@@ -3,6 +3,9 @@ package com.example.baatcheat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.emoji.bundled.BundledEmojiCompatConfig;
+import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.widget.EmojiEditText;
 
 import android.os.Bundle;
 import android.view.View;
@@ -25,8 +28,8 @@ import java.util.HashMap;
 
 public class BioActivity extends AppCompatActivity {
 
-    private ImageView goBack,Done;
-    private EditText Bio;
+    private ImageView goBack, Done;
+    private EmojiEditText Bio;
 
     FirebaseUser firebaseUser;
 
@@ -36,8 +39,10 @@ public class BioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
+        EmojiCompat.init(config);
         setContentView(R.layout.activity_bio);
-        
+
         goBack = findViewById(R.id.backToMain);
         Done = findViewById(R.id.done);
         Bio = findViewById(R.id.bio);
@@ -54,7 +59,7 @@ public class BioActivity extends AppCompatActivity {
                 finish();
             }
         });
-        
+
         Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,14 +94,14 @@ public class BioActivity extends AppCompatActivity {
         String str_Bio = Bio.getText().toString().trim();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("bio",str_Bio);
+        hashMap.put("bio", str_Bio);
 
         reference.updateChildren(hashMap);
 
         finish();
     }
 
-    void DottedLoader(){
+    void DottedLoader() {
         TashieLoader tashie = new TashieLoader(
                 this, 5,
                 30, 10,

@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.emoji.bundled.BundledEmojiCompatConfig;
+import androidx.emoji.text.EmojiCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -106,6 +108,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             mLayout = itemView.findViewById(R.id.mLayout);
 
             //dialog ini
+            EmojiCompat.Config config = new BundledEmojiCompatConfig(mContext);
+            EmojiCompat.init(config);
             mDialog = new Dialog(mContext);
             mDialog.setContentView(R.layout.dialog_contact);
             mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

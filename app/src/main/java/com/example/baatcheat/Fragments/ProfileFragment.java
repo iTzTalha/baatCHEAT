@@ -6,7 +6,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.BundleCompat;
 import androidx.core.content.ContextCompat;
+import androidx.emoji.bundled.BundledEmojiCompatConfig;
+import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.text.FontRequestEmojiCompatConfig;
+import androidx.emoji.widget.EmojiTextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -43,19 +48,21 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class ProfileFragment extends Fragment {
 
-private TextView tv_username,myPhoneNumner,myBio;
+    private TextView tv_username, myPhoneNumner;
+    private EmojiTextView myBio;
     private LinearLayout Username;
     private LinearLayout phone;
     private LinearLayout logout;
     private LinearLayout bio;
 
-    private TextView fixedText,Editusername;
+    private TextView fixedText, Editusername;
 
     private FirebaseAuth mAuth;
 
     TashieLoader tashieLoader;
 
     FirebaseUser firebaseUser;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -63,12 +70,15 @@ private TextView tv_username,myPhoneNumner,myBio;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        EmojiCompat.Config config = new BundledEmojiCompatConfig(getActivity());
+        EmojiCompat.init(config);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         tv_username = view.findViewById(R.id.tv_username);
         myPhoneNumner = view.findViewById(R.id.myphonenumner);
-        myBio = view.findViewById(R.id.myBio);
+        myBio = (EmojiTextView) view.findViewById(R.id.myBio);
         Username = view.findViewById(R.id.username);
         phone = view.findViewById(R.id.phone);
         bio = view.findViewById(R.id.bio);
@@ -122,7 +132,7 @@ private TextView tv_username,myPhoneNumner,myBio;
             }
         });
 
-        return  view;
+        return view;
     }
 
     private void updateProfileInfo() {
@@ -148,7 +158,7 @@ private TextView tv_username,myPhoneNumner,myBio;
         });
     }
 
-    void DottedLoader(){
+    void DottedLoader() {
         TashieLoader tashie = new TashieLoader(
                 getContext(), 5,
                 30, 10,

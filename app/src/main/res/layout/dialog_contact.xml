@@ -24,48 +24,52 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
+        <androidx.emoji.widget.EmojiTextView
             android:id="@+id/dialog_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal"
             android:hint="No bio written yet"
-            android:textColorHint="#080708"
-            android:textColor="#080708" />
+            android:textAlignment="center"
+            android:textColor="#080708"
+            android:textColorHint="#080708" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:id="@+id/normalchat"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/normalchat"
-                android:background="?actionBarItemBackground"/>
+                android:layout_gravity="center_vertical"
+                android:background="?actionBarItemBackground"
+                android:src="@drawable/normalchat" />
 
             <ImageView
-                android:layout_gravity="center_vertical"
                 android:id="@+id/audiochat"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/audiochat"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="50dp"
                 android:background="?actionBarItemBackground"
-                android:layout_marginStart="50dp"/>
+                android:src="@drawable/audiochat" />
 
             <ImageView
                 android:id="@+id/videochat"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/videochat"
+                android:layout_marginStart="50dp"
                 android:background="?actionBarItemBackground"
-                android:layout_marginStart="50dp"/>
+                android:src="@drawable/videochat" />
 
 
         </LinearLayout>

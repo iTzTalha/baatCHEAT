@@ -3,8 +3,13 @@ package com.example.baatcheat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.emoji.bundled.BundledEmojiCompatConfig;
+import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.widget.EmojiButton;
+import androidx.emoji.widget.EmojiEditText;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,9 +19,11 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,13 +44,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
+    RelativeLayout relativeLayout;
+
     CircleImageView profile_image;
     ImageView back;
     TextView username, status;
 
     RecyclerView recyclerView;
-    EditText sendmsg;
-    ImageButton btn_send;
+    EmojiEditText sendmsg;
+    ImageButton btn_send,btn_emoji;
 
     FirebaseUser firebaseUser;
 
@@ -51,7 +60,11 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
+        EmojiCompat.init(config);
         setContentView(R.layout.activity_message);
+
+        relativeLayout = findViewById(R.id.relativeLayout);
 
         profile_image = findViewById(R.id.profile_image);
         back = findViewById(R.id.back);
@@ -60,8 +73,10 @@ public class MessageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         sendmsg = findViewById(R.id.sendmsg);
+        btn_emoji = findViewById(R.id.btn_emoji);
         btn_send = findViewById(R.id.btn_send);
         btn_send.setEnabled(false);
+        btn_send.setAlpha((float) 0.5);
         btn_send.setBackgroundResource(R.drawable.btn_send_disabled);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -89,6 +104,14 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        btn_emoji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         });
 
@@ -126,6 +149,12 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard(MessageActivity.this);
+            }
+        });
     }
 
     private void sendMessage(String sender, String receiver, String message){
@@ -137,5 +166,15 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("message",message);
 
         reference.child("Chats").push().setValue(hashMap);
+    }
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

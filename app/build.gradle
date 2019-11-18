@@ -55,4 +55,9 @@ dependencies {
     //Glide - Image loading and Caching
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
+    //Emoji Compatibility
+    implementation 'androidx.emoji:emoji:1.0.0'
+    implementation "androidx.emoji:emoji-appcompat:1.0.0"
+    implementation "androidx.emoji:emoji-bundled:1.0.0"
 }

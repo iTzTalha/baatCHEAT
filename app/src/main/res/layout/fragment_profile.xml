@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ProfileFragment">
 
     <LinearLayout
@@ -153,20 +153,20 @@
             android:orientation="vertical"
             android:paddingBottom="7dp">
 
-            <TextView
-                android:layout_marginEnd="20dp"
+            <androidx.emoji.widget.EmojiTextView
                 android:id="@+id/myBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:hint="Bio"
-                android:textColorHint="#080708"
-                android:inputType="text"
                 android:maxLines="1"
                 android:textColor="#080708"
-                android:textSize="16sp" />
+                android:textColorHint="#080708"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -261,13 +261,13 @@
         android:id="@+id/lazyLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         app:tashieloader_animDelay="200"
         app:tashieloader_animDur="500"
         app:tashieloader_dotsColor="@color/colorPrimary"
         app:tashieloader_dotsDist="8dp"
         app:tashieloader_dotsRadius="10dp"
         app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
-        app:tashieloader_noOfDots="3"
-        android:layout_centerInParent="true"/>
+        app:tashieloader_noOfDots="3" />
 
 </RelativeLayout>
