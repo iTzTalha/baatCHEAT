@@ -263,7 +263,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:tashieloader_animDelay="200"
-        app:tashieloader_animDur="500"
+        app:tashieloader_animDur="300"
         app:tashieloader_dotsColor="@color/colorPrimary"
         app:tashieloader_dotsDist="8dp"
         app:tashieloader_dotsRadius="8dp"

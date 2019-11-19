@@ -60,16 +60,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:visibility="gone"
-                android:imeOptions="actionSearch"
-                android:hint="Search"
-                android:background="@null"
-                android:singleLine="true"
                 android:layout_marginStart="50dp"
-                android:layout_marginEnd="25dp" />
+                android:layout_marginEnd="25dp"
+                android:background="@null"
+                android:hint="Search"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>

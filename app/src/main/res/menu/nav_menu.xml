@@ -9,12 +9,8 @@
     <item
         android:id="@id/callsFragment"
         android:icon="@drawable/nav_calls_color"
-        android:title="Calls"/>
+        android:title="Discover"/>
 
-    <item
-        android:id="@id/contactsFragment"
-        android:icon="@drawable/nav_contacts_color"
-        android:title="Contacts"/>
 
     <item
         android:id="@id/profileFragment"
