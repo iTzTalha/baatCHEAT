@@ -92,7 +92,7 @@
         app:tashieloader_animDur="500"
         app:tashieloader_dotsColor="@color/colorPrimary"
         app:tashieloader_dotsDist="8dp"
-        app:tashieloader_dotsRadius="10dp"
+        app:tashieloader_dotsRadius="8dp"
         app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
         app:tashieloader_noOfDots="3"
         android:layout_centerInParent="true"/>

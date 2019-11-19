@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
 import com.example.baatcheat.Adapter.UserAdapter;
 import com.example.baatcheat.CountryToPhonePrefix;
 import com.example.baatcheat.Model.User;
@@ -53,7 +54,7 @@ public class ContactsFragment extends Fragment {
 
     FirebaseAuth mAuth;
 
-    ProgressBar progressBar;
+    TashieLoader tashieLoader;
 
 
     public ContactsFragment() {
@@ -68,7 +69,7 @@ public class ContactsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
 
         permissionText = view.findViewById(R.id.permissionText);
-        progressBar = view.findViewById(R.id.progress_Bar);
+        tashieLoader = view.findViewById(R.id.lazyLoader);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setNestedScrollingEnabled(false);
@@ -145,7 +146,7 @@ public class ContactsFragment extends Fragment {
 
                         userList.add(mUser);
                         userAdapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
+                        tashieLoader.setVisibility(View.GONE);
                         return;
                     }
                 }

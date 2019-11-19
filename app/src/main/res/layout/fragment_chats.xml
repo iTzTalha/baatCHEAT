@@ -6,40 +6,70 @@
     tools:context=".Fragments.ChatsFragment">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
         android:background="?android:attr/windowBackground">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Chats"
-            android:textColor="#080708"
-            android:textSize="25sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backtonormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="?actionBarItemBackground"
+                android:src="@drawable/back"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Chats"
+                android:textColor="#080708"
+                android:textSize="25sp" />
+
+            <ImageView
+                android:id="@+id/searchcontacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="240dp"
+                android:background="?actionBarItemBackground"
+                android:src="@drawable/search" />
+
+
+            <ImageView
+                android:id="@+id/btn_contacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:background="?actionBarItemBackground"
+                android:paddingTop="5dp"
+                android:src="@drawable/btn_contacts" />
+
+            <EditText
+                android:id="@+id/searchbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:imeOptions="actionSearch"
+                android:hint="Search"
+                android:background="@null"
+                android:singleLine="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="25dp" />
+
+        </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
-
-
-        <TextView
-            android:id="@+id/search"
-            android:layout_below="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search"
-            android:layout_marginTop="10dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:drawableStart="@drawable/search"
-            android:drawablePadding="10dp"
-            android:textColorHint="#A9AAAB"
-            android:background="@drawable/search_ripple"
-            android:clickable="true"
-            android:focusable="true"/>
 
 </RelativeLayout>

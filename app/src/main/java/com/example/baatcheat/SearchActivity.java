@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -57,5 +60,17 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                   //performaction();
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 }

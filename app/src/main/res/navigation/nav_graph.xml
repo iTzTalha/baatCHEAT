@@ -9,7 +9,11 @@
         android:id="@+id/chatsFragment"
         android:name="com.example.baatcheat.Fragments.ChatsFragment"
         android:label="fragment_chats"
-        tools:layout="@layout/fragment_chats" />
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/action_chatsFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/callsFragment"
         android:name="com.example.baatcheat.Fragments.CallsFragment"
