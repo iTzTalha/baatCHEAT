@@ -10,12 +10,20 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
 
     private NavController navController;
+
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         getPermissions();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     private void getPermissions() {
@@ -36,4 +46,29 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
         }
     }
+
+    private void status (String status){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status",status);
+
+        reference.updateChildren(hashMap);
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        status("offline");
+    }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,6 +11,7 @@
     android:focusable="true">
 
     <LinearLayout
+        android:id="@+id/useritem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -17,15 +19,18 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/profile_holder"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:background="?actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/image_profile"
             android:orientation="vertical">
@@ -49,6 +54,15 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
+
     </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:id="@+id/img_on"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="34dp"
+        android:src="@drawable/img_on"/>
 
 </RelativeLayout>

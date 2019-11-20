@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.baatcheat.Adapter.DisplayUserAdapter;
 import com.example.baatcheat.Adapter.UserAdapter;
 import com.example.baatcheat.Model.Chat;
 import com.example.baatcheat.Model.ChatList;
@@ -55,7 +56,7 @@ public class ChatsFragment extends Fragment {
     private EditText searchbar;
 
     RecyclerView recyclerView;
-    UserAdapter userAdapter;
+    DisplayUserAdapter userAdapter;
     List<User> mUsers;
     List<ChatList> userList;
 
@@ -183,7 +184,7 @@ public class ChatsFragment extends Fragment {
                         }
                     }
                 }
-                userAdapter = new UserAdapter(getContext(),mUsers);
+                userAdapter = new DisplayUserAdapter(getContext(),mUsers,true);
                 recyclerView.setAdapter(userAdapter);
             }
 

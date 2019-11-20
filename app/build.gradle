@@ -60,4 +60,10 @@ dependencies {
     implementation 'androidx.emoji:emoji:1.0.0'
     implementation "androidx.emoji:emoji-appcompat:1.0.0"
     implementation "androidx.emoji:emoji-bundled:1.0.0"
+
+    //  CropImage
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    //Dexter
+    implementation 'com.karumi:dexter:6.0.0'
 }

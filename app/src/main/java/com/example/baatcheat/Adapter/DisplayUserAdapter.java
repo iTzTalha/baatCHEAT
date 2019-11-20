@@ -17,7 +17,6 @@ import androidx.emoji.bundled.BundledEmojiCompatConfig;
 import androidx.emoji.text.EmojiCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.baatcheat.MessageActivity;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
@@ -26,14 +25,14 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<User> mUsers;
     private Dialog mDialog;
     private boolean isChat;
 
-    public UserAdapter(Context mContext, List<User> mUsers, boolean isChat) {
+    public DisplayUserAdapter(Context mContext, List<User> mUsers, boolean isChat) {
         this.mContext = mContext;
         this.mUsers = mUsers;
         this.isChat = isChat;
@@ -42,26 +41,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_user, parent, false);
-        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(layoutParams);
 
-        ViewHolder mviewHolder = new ViewHolder(view);
-
-        return mviewHolder;
+        return new DisplayUserAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final User users = mUsers.get(position);
-
 
         holder.username.setText(users.getUsername());
         holder.phoneNumber.setText(users.getPhone());
-//        Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
-
         if (isChat){
             if (users.getStatus().equals("online")){
                 holder.img_on.setVisibility(View.VISIBLE);
@@ -71,10 +61,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }else {
             holder.img_on.setVisibility(View.GONE);
         }
-
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, MessageActivity.class);
+                i.putExtra("userid",users.getId());
+
+                mContext.startActivity(i);
+            }
+        });
+        holder.image_Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 TextView dialog_username = mDialog.findViewById(R.id.dialog_username);
                 TextView dialog_phone = mDialog.findViewById(R.id.dialog_phone);
                 ImageView dialog_imageProfile = mDialog.findViewById(R.id.dialog_ImageProfile);
@@ -97,7 +95,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 });
             }
         });
-
     }
 
     @Override

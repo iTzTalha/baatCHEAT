@@ -6,16 +6,26 @@ public class User {
     private String phone;
     private String bio;
     private String imageUrl;
+    private String status;
 
-    public User(String id, String username, String phone, String bio, String imageUrl) {
+    public User(String id, String username, String phone, String bio, String imageUrl, String status) {
         this.id = id;
         this.username = username;
         this.phone = phone;
         this.bio = bio;
         this.imageUrl = imageUrl;
+        this.status = status;
     }
 
     public User() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getImageUrl() {

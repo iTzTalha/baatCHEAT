@@ -77,7 +77,7 @@ public class ContactsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         userList = new ArrayList<>();
         contactList = new ArrayList<>();
-        userAdapter = new UserAdapter(getContext(), userList);
+        userAdapter = new UserAdapter(getContext(), userList, false);
         recyclerView.setAdapter(userAdapter);
 
         mAuth = FirebaseAuth.getInstance();
@@ -114,7 +114,7 @@ public class ContactsFragment extends Fragment {
             if (!String.valueOf(phone.charAt(0)).equals("+")) {
                 phone = ISOPrefix + phone;
             }
-            User mContacts = new User("", name, phone, "","");
+            User mContacts = new User("", name, phone, "","","");
             contactList.add(mContacts);
             getUserDetails(mContacts);
         }
@@ -136,7 +136,7 @@ public class ContactsFragment extends Fragment {
                             name = childSnapshot.child("username").getValue().toString();
 
 
-                        User mUser = new User(childSnapshot.getKey(), name, phone, childSnapshot.child("bio").getValue().toString(),"");
+                        User mUser = new User(childSnapshot.getKey(), name, phone, childSnapshot.child("bio").getValue().toString(),"",childSnapshot.child("status").getValue().toString());
                         if (name.equals(phone))
                             for (User mContactIterator : contactList) {
                                 if (mContactIterator.getPhone().equals(mUser.getPhone())) {

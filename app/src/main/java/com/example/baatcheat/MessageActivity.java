@@ -104,7 +104,9 @@ public class MessageActivity extends AppCompatActivity {
 
                 username.setText(user.getUsername());
 //                Glide.with(MessageActivity.this).load(user.getImageUrl()).into(profile_image);
+
                 readMessage(firebaseUser.getUid(),userid);
+                status.setText(user.getStatus());
             }
 
             @Override
@@ -116,6 +118,7 @@ public class MessageActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                startActivity(new Intent(MessageActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
             }
         });
