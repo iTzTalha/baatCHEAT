@@ -74,7 +74,7 @@ public class UsernameActivity extends AppCompatActivity {
                             username.setError("Username must be between 5 - 25 characters");
                             username.requestFocus();
                             return;
-                        } else {
+                        }else{
                             updateProfile(username.getText().toString().replace(" ","").trim());
                             DottedLoader();
                             finish();

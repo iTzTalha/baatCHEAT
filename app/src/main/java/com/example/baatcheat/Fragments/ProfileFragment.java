@@ -1,6 +1,8 @@
 package com.example.baatcheat.Fragments;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -8,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
+import com.bumptech.glide.Glide;
 import com.example.baatcheat.BioActivity;
 import com.example.baatcheat.LoginActivity;
 import com.example.baatcheat.Model.User;
@@ -55,6 +59,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -87,6 +92,9 @@ public class ProfileFragment extends Fragment {
 
     FirebaseUser firebaseUser;
 
+    private static  final int IMAGE_REGUEST = 1;
+    private Uri mImageUri;
+    private StorageTask uploadTask;
     StorageReference storageReference;
 
     public ProfileFragment() {
@@ -117,6 +125,7 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         tashieLoader = view.findViewById(R.id.lazyLoader);
 
@@ -126,7 +135,11 @@ public class ProfileFragment extends Fragment {
         image_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPictureDialog();
+//                CropImage.startPickImageActivity(getActivity());
+                Intent intent= new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent,IMAGE_REGUEST);
             }
         });
 
@@ -181,7 +194,11 @@ public class ProfileFragment extends Fragment {
                 myPhoneNumner.setText(users.getPhone());
                 myBio.setText(users.getBio());
                 tashieLoader.setVisibility(View.GONE);
-//                Glide.with(getApplicationContext()).load(users.getImageurl()).into(imageView);
+                if (users.getImageUrl().equals("default")) {
+                    image_profile.setImageResource(R.drawable.profile_holder);
+                } else {
+                    Glide.with(getActivity()).load(users.getImageUrl()).into(image_profile);
+                }
 
             }
 
@@ -192,9 +209,116 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void showPictureDialog() {
-
+    private String getFileExtention(Uri uri){
+        ContentResolver contentResolver = getContext().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
+
+    private void uploadImage() {
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading");
+        progressDialog.show();
+
+        if (mImageUri != null){
+
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() +"."+ getFileExtention(mImageUri));
+
+            uploadTask = fileReference.putFile(mImageUri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+
+                    if (!task.isSuccessful()){
+                        throw task.getException();
+                    }
+                    return fileReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+
+                    if (task.isSuccessful()){
+
+                        Uri downloadUri = task.getResult();
+                        String myUrl = downloadUri.toString();
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("imageUrl", myUrl);
+
+                        reference.updateChildren(hashMap);
+                        progressDialog.dismiss();
+                    }else {
+
+                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            });
+        }else {
+
+            Toast.makeText(getActivity(), "No image selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGE_REGUEST && resultCode == getActivity().RESULT_OK
+        && data != null && data.getData() != null ){
+
+            mImageUri = data.getData();
+
+            if (uploadTask != null && uploadTask.isInProgress()){
+                Toast.makeText(getActivity(), "Upload in progress", Toast.LENGTH_SHORT).show();
+            }else {
+                uploadImage();
+            }
+        }
+    }
+
+    //    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == getActivity().RESULT_OK) {
+//            Uri imageUri = CropImage.getPickImageResultUri(getActivity(), data);
+//            if (CropImage.isReadExternalStoragePermissionsRequired(getActivity(), imageUri)) {
+//                mImageUri = imageUri;
+//                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+//            } else {
+//                startCrop(imageUri);
+//            }
+//        }
+//
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            if (requestCode == getActivity().RESULT_OK) {
+//                image_profile.setImageURI(result.getUri());
+//                Toast.makeText(getActivity(), "done!!!", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
+//
+//    private void startCrop(Uri imageUri) {
+//       Intent intent = CropImage.activity(imageUri)
+//                .setAspectRatio(1, 1)
+//                .setCropShape(CropImageView.CropShape.OVAL)
+//                .getIntent(getContext());
+//        startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+//    }
+
 
     void DottedLoader() {
         TashieLoader tashie = new TashieLoader(

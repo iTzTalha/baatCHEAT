@@ -60,7 +60,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         holder.username.setText(users.getUsername());
         holder.phoneNumber.setText(users.getPhone());
-//        Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
+
+        if (users.getImageUrl().equals("default")){
+            holder.image_Profile.setImageResource(R.drawable.profile_holder);
+        }else {
+            Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
+        }
+
 
         if (isChat){
             if (users.getStatus().equals("online")){

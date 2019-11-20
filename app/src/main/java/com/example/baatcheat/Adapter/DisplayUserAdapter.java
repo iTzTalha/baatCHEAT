@@ -17,6 +17,7 @@ import androidx.emoji.bundled.BundledEmojiCompatConfig;
 import androidx.emoji.text.EmojiCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.baatcheat.MessageActivity;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
@@ -52,6 +53,11 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
 
         holder.username.setText(users.getUsername());
         holder.phoneNumber.setText(users.getPhone());
+        if (users.getImageUrl().equals("default")){
+            holder.image_Profile.setImageResource(R.drawable.profile_holder);
+        }else {
+            Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
+        }
         if (isChat){
             if (users.getStatus().equals("online")){
                 holder.img_on.setVisibility(View.VISIBLE);

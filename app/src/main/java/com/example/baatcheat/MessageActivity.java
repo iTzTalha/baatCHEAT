@@ -103,8 +103,11 @@ public class MessageActivity extends AppCompatActivity {
                 User user = dataSnapshot.getValue(User.class);
 
                 username.setText(user.getUsername());
-//                Glide.with(MessageActivity.this).load(user.getImageUrl()).into(profile_image);
-
+                if (user.getImageUrl().equals("default")) {
+                    profile_image.setImageResource(R.drawable.profile_holder);
+                }else {
+                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(profile_image);
+                }
                 readMessage(firebaseUser.getUid(),userid);
                 status.setText(user.getStatus());
             }

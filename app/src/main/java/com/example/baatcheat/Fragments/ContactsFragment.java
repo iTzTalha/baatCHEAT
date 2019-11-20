@@ -136,7 +136,7 @@ public class ContactsFragment extends Fragment {
                             name = childSnapshot.child("username").getValue().toString();
 
 
-                        User mUser = new User(childSnapshot.getKey(), name, phone, childSnapshot.child("bio").getValue().toString(),"",childSnapshot.child("status").getValue().toString());
+                        User mUser = new User(childSnapshot.getKey(), name, phone, childSnapshot.child("bio").getValue().toString(),childSnapshot.child("imageUrl").getValue().toString(),childSnapshot.child("status").getValue().toString());
                         if (name.equals(phone))
                             for (User mContactIterator : contactList) {
                                 if (mContactIterator.getPhone().equals(mUser.getPhone())) {
