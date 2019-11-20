@@ -135,4 +135,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
+    public void updateList(List<User> list){
+        mUsers = list;
+        notifyDataSetChanged();
+    }
 }

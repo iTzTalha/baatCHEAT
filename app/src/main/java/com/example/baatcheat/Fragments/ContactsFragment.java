@@ -15,10 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -46,7 +50,9 @@ import java.util.List;
  */
 public class ContactsFragment extends Fragment {
 
-    private TextView permissionText;
+    private TextView permissionText,text5;
+    private ImageView backtonormal,btn_search;
+    private EditText searchbar;
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
@@ -67,6 +73,11 @@ public class ContactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+
+        text5 = view.findViewById(R.id.text5);
+        backtonormal = view.findViewById(R.id.backtonormal);
+        btn_search = view.findViewById(R.id.btn_search);
+        searchbar = view.findViewById(R.id.searchbar);
 
         permissionText = view.findViewById(R.id.permissionText);
         tashieLoader = view.findViewById(R.id.lazyLoader);
@@ -93,6 +104,43 @@ public class ContactsFragment extends Fragment {
             getContacts();
         }
 
+        //Search
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text5.setVisibility(View.GONE);
+                backtonormal.setVisibility(View.VISIBLE);
+                searchbar.setVisibility(View.VISIBLE);
+                btn_search.setVisibility(View.GONE);
+            }
+        });
+
+        backtonormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text5.setVisibility(View.VISIBLE);
+                backtonormal.setVisibility(View.GONE);
+                searchbar.setVisibility(View.GONE);
+                btn_search.setVisibility(View.VISIBLE);
+            }
+        });
+
+        searchbar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
 
         return view;
     }
@@ -175,5 +223,18 @@ public class ContactsFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
         }
+    }
+
+    void filter(String text){
+        List<User> temp = new ArrayList();
+        for(User d: userList){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(d.getUsername().toLowerCase().contains(text.toLowerCase())){
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        userAdapter.updateList(temp);
     }
 }

@@ -22,6 +22,7 @@ import com.example.baatcheat.MessageActivity;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -53,25 +54,25 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
 
         holder.username.setText(users.getUsername());
         holder.phoneNumber.setText(users.getPhone());
-        if (users.getImageUrl().equals("default")){
+        if (users.getImageUrl().equals("default")) {
             holder.image_Profile.setImageResource(R.drawable.profile_holder);
-        }else {
+        } else {
             Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
         }
-        if (isChat){
-            if (users.getStatus().equals("online")){
+        if (isChat) {
+            if (users.getStatus().equals("online")) {
                 holder.img_on.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_on.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             holder.img_on.setVisibility(View.GONE);
         }
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, MessageActivity.class);
-                i.putExtra("userid",users.getId());
+                i.putExtra("userid", users.getId());
 
                 mContext.startActivity(i);
             }
@@ -94,7 +95,7 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(mContext, MessageActivity.class);
-                        i.putExtra("userid",users.getId());
+                        i.putExtra("userid", users.getId());
                         mContext.startActivity(i);
                         mDialog.cancel();
                     }
@@ -132,4 +133,11 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
             mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
+
+    public void updateList(List<User> list){
+        mUsers = list;
+        notifyDataSetChanged();
+    }
+
+
 }

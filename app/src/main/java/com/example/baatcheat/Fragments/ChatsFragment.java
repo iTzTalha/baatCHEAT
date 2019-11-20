@@ -3,38 +3,35 @@ package com.example.baatcheat.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.baatcheat.Adapter.DisplayUserAdapter;
-import com.example.baatcheat.Adapter.UserAdapter;
-import com.example.baatcheat.Model.Chat;
 import com.example.baatcheat.Model.ChatList;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
-import com.example.baatcheat.SearchActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -104,6 +101,23 @@ public class ChatsFragment extends Fragment {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        searchbar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
             }
         });
 
@@ -196,5 +210,16 @@ public class ChatsFragment extends Fragment {
 
     }
 
-
+    void filter(String text){
+        List<User> temp = new ArrayList();
+        for(User d: mUsers){
+            //or use .equal(text) with you want equal match
+            //use .toLowerCase() for better matches
+            if(d.getUsername().toLowerCase().contains(text.toLowerCase())){
+                temp.add(d);
+            }
+        }
+        //update recyclerview
+        userAdapter.updateList(temp);
+    }
 }
