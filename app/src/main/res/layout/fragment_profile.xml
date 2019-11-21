@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:layout_marginTop="70dp"
         android:orientation="vertical">
 
@@ -41,10 +42,9 @@
 
     <ImageView
         android:id="@+id/btn_change_profile"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_toEndOf="@+id/profileContainer"
-        android:layout_marginStart="-25dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignEnd="@+id/image_profile_border"
         android:layout_marginTop="150dp"
         android:background="@drawable/change_profile" />
 

@@ -87,14 +87,18 @@
         <androidx.emoji.widget.EmojiEditText
             android:id="@+id/sendmsg"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="45dp"
             android:layout_marginEnd="16dp"
             android:layout_toLeftOf="@+id/btn_send"
+            android:inputType="textMultiLine"
             android:background="@drawable/sendmsg_round"
             android:hint="Type a message"
-            android:paddingStart="10dp" />
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"/>
 
         <ImageButton
             android:id="@+id/btn_send"
