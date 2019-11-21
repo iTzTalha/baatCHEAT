@@ -62,7 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.phoneNumber.setText(users.getPhone());
 
         if (users.getImageUrl().equals("default")){
-            holder.image_Profile.setImageResource(R.drawable.profile_holder);
+            holder.image_Profile.setBackgroundResource(R.drawable.profile_holder_);
         }else {
             Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
         }

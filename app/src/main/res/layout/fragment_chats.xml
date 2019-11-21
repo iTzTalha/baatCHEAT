@@ -51,9 +51,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                android:background="?actionBarItemBackground"
                 android:paddingTop="5dp"
-                android:src="@drawable/btn_contacts" />
+                android:background="@drawable/btn_contacs" />
 
             <EditText
                 android:id="@+id/searchbar"

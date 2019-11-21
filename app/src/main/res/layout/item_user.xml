@@ -21,9 +21,8 @@
             android:id="@+id/image_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/profile_holder"
+            android:background="@drawable/profile_holder_"
             android:layout_gravity="center_vertical"
-            android:background="?actionBarItemBackground"
             android:clickable="true"
             android:focusable="true"/>
 

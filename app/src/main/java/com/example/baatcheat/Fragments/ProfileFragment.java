@@ -300,7 +300,7 @@ public class ProfileFragment extends Fragment {
                     myBio.setText(users.getBio());
                     tashieLoader.setVisibility(View.GONE);
                     if (users.getImageUrl().equals("default")) {
-                        image_profile.setImageResource(R.drawable.profile_holder);
+                        image_profile.setBackgroundResource(R.drawable.profile_holder_);
                     } else {
                         Glide.with(getActivity()).load(users.getImageUrl()).into(image_profile);
                     }
