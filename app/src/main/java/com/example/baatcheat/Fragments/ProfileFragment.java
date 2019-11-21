@@ -210,6 +210,7 @@ public class ProfileFragment extends Fragment {
                         Intent intent= new Intent();
                         intent.setType("image/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(intent,IMAGE_REGUEST);
                         mDialog.cancel();
                     }
                 });

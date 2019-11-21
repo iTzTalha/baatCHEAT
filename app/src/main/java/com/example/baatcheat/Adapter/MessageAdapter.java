@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         holder.showmessage.setText(chat.getMessage());
 
+        if (position == mChat.size()-1){
+            if (chat.isSeen()){
+                holder.ok_send.setVisibility(View.GONE);
+                holder.ok_seen.setVisibility(View.VISIBLE);
+            }else {
+                holder.ok_send.setVisibility(View.VISIBLE);
+                holder.ok_seen.setVisibility(View.GONE);
+            }
+        }else {
+            holder.ok_send.setVisibility(View.GONE);
+            holder.ok_seen.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -57,12 +71,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         public TextView showmessage;
         public CircleImageView image_Profile;
+        public ImageView ok_send,ok_seen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             showmessage = itemView.findViewById(R.id.showmessage);
             image_Profile = itemView.findViewById(R.id.image_profile);
+            ok_send = itemView.findViewById(R.id.ok_send);
+            ok_seen = itemView.findViewById(R.id.ok_seen);
         }
     }
 

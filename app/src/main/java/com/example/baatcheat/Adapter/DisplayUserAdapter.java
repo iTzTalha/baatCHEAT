@@ -15,14 +15,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.emoji.bundled.BundledEmojiCompatConfig;
 import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.widget.EmojiTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.baatcheat.MessageActivity;
+import com.example.baatcheat.Model.Chat;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -34,6 +42,8 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
     private Dialog mDialog;
     private boolean isChat;
 
+    private String thelastMessage;
+
     public DisplayUserAdapter(Context mContext, List<User> mUsers, boolean isChat) {
         this.mContext = mContext;
         this.mUsers = mUsers;
@@ -43,6 +53,7 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_user, parent, false);
 
         return new DisplayUserAdapter.ViewHolder(view);
@@ -53,19 +64,21 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
         final User users = mUsers.get(position);
 
         holder.username.setText(users.getUsername());
-        holder.phoneNumber.setText(users.getPhone());
+//        holder.phoneNumber.setText(users.getPhone());
         if (users.getImageUrl().equals("default")) {
             holder.image_Profile.setBackgroundResource(R.drawable.profile_holder_);
         } else {
             Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
         }
         if (isChat) {
+            lastMessage(users.getId(),holder.lastMsg);
             if (users.getStatus().equals("online")) {
                 holder.img_on.setVisibility(View.VISIBLE);
             } else {
                 holder.img_on.setVisibility(View.GONE);
             }
         } else {
+            holder.lastMsg.setVisibility(View.GONE);
             holder.img_on.setVisibility(View.GONE);
         }
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +124,8 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView username, phoneNumber;
+        public TextView username;
+        public TextView lastMsg;
         public CircleImageView image_Profile;
         public ImageView img_on;
         public RelativeLayout mLayout;
@@ -121,7 +135,7 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
 
             username = itemView.findViewById(R.id.username);
             image_Profile = itemView.findViewById(R.id.image_profile);
-            phoneNumber = itemView.findViewById(R.id.phoneNumber);
+            lastMsg = itemView.findViewById(R.id.phoneNumber);
             img_on = itemView.findViewById(R.id.img_on);
             mLayout = itemView.findViewById(R.id.mLayout);
 
@@ -134,10 +148,42 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
         }
     }
 
-    public void updateList(List<User> list){
+    public void updateList(List<User> list) {
         mUsers = list;
         notifyDataSetChanged();
     }
 
+    private void lastMessage(final String userid, final TextView last_msg) {
+        thelastMessage = "default";
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) {
+                        thelastMessage = chat.getMessage();
+                    }
+                }
 
+                switch (thelastMessage) {
+                    case "default":
+                        last_msg.setText("");
+                        break;
+                    default:
+                        last_msg.setText(thelastMessage);
+                        break;
+                }
+
+                thelastMessage = "default";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

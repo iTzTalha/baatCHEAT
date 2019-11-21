@@ -20,4 +20,20 @@
         android:paddingBottom="8dp"
         android:text="helowwwwwwwwwwwww"/>
 
+    <ImageView
+        android:id="@+id/ok_send"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ok_send"
+        android:layout_marginTop="22dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ok_seen"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ok_seen"
+        android:layout_marginTop="22dp"
+        android:visibility="gone"/>
+
 </RelativeLayout>

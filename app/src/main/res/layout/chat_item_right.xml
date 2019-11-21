@@ -21,12 +21,32 @@
             android:background="@drawable/chatbubble_right"
             android:paddingStart="15dp"
             android:paddingTop="8dp"
-            android:paddingEnd="15dp"
+            android:paddingEnd="30dp"
             android:paddingBottom="8dp"
             android:text="hellowwwwwwwwwwwww"
             android:textColor="#fff"
             android:textSize="18sp" />
 
+
+        <ImageView
+            android:id="@+id/ok_send"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ok_send"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ok_seen"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ok_seen"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

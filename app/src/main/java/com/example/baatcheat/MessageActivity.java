@@ -65,6 +65,9 @@ public class MessageActivity extends AppCompatActivity {
     List<Chat> chatList;
     RecyclerView recyclerView;
 
+    DatabaseReference reference;
+    ValueEventListener SeenListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +100,8 @@ public class MessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String userid = intent.getStringExtra("userid");
 
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,10 +111,10 @@ public class MessageActivity extends AppCompatActivity {
                 username.setText(user.getUsername());
                 if (user.getImageUrl().equals("default")) {
                     profile_image.setImageResource(R.drawable.profile_holder);
-                }else {
-                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(profile_image);
+                } else {
+                    Glide.with(getApplicationContext()).load(user.getImageUrl()).into(profile_image);
                 }
-                readMessage(firebaseUser.getUid(),userid);
+                readMessage(firebaseUser.getUid(), userid);
                 status.setText(user.getStatus());
             }
 
@@ -119,11 +124,13 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        seenMessage(userid);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(MessageActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                finish();
+                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                finish();
             }
         });
 
@@ -185,6 +192,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("seen", false);
 
         reference.child("Chats").push().setValue(hashMap);
 
@@ -193,7 +201,7 @@ public class MessageActivity extends AppCompatActivity {
         reference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()){
+                if (!dataSnapshot.exists()) {
                     reference1.child("id").setValue(receiver);
                 }
             }
@@ -231,6 +239,28 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private void seenMessage(final String userid) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)) {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("seen", true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -248,5 +278,27 @@ public class MessageActivity extends AppCompatActivity {
                     getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
         }
+    }
+
+    private void status(String status) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        reference.removeEventListener(SeenListener);
+        status("offline");
     }
 }
