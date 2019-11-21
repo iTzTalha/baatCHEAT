@@ -154,6 +154,7 @@ public class ChatsFragment extends Fragment {
                 btn_contacts.setVisibility(View.VISIBLE);
                 search.setVisibility(View.VISIBLE);
                 searchbar.clearFocus();
+                filter("");
             }
         });
 

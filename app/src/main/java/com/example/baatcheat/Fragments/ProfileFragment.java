@@ -4,11 +4,14 @@ package com.example.baatcheat.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,13 +31,16 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +83,7 @@ import static android.media.MediaRecorder.VideoSource.CAMERA;
 public class ProfileFragment extends Fragment {
 
     private TextView tv_username, myPhoneNumner;
-    private CircleImageView image_profile;
+    private ImageView image_profile,btn_change_profile;
     private EmojiTextView myBio;
     private LinearLayout Username;
     private LinearLayout phone;
@@ -97,6 +103,10 @@ public class ProfileFragment extends Fragment {
     private StorageTask uploadTask;
     StorageReference storageReference;
 
+    private Dialog mDialog;
+    private RelativeLayout dialog_bg;
+    private LinearLayout select_photo,remove_photo;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -113,6 +123,7 @@ public class ProfileFragment extends Fragment {
         tv_username = view.findViewById(R.id.tv_username);
         myPhoneNumner = view.findViewById(R.id.myphonenumner);
         image_profile = view.findViewById(R.id.image_profile);
+        btn_change_profile = view.findViewById(R.id.btn_change_profile);
         myBio = (EmojiTextView) view.findViewById(R.id.myBio);
         Username = view.findViewById(R.id.username);
         phone = view.findViewById(R.id.phone);
@@ -127,6 +138,23 @@ public class ProfileFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference();
 
+        mDialog = new Dialog(getActivity());
+        mDialog.setContentView(R.layout.dialog_change_profile);
+        mDialog.setCanceledOnTouchOutside(true);
+        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialog.getWindow().setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(mDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.BOTTOM;
+        lp.windowAnimations = R.style.DialogAnimation;
+        mDialog.getWindow().setAttributes(lp);
+
+        dialog_bg = mDialog.findViewById(R.id.dialog_bg);
+        select_photo = mDialog.findViewById(R.id.select_photo);
+        remove_photo = mDialog.findViewById(R.id.remove_photo);
+
         tashieLoader = view.findViewById(R.id.lazyLoader);
 
         DottedLoader();
@@ -136,10 +164,57 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                CropImage.startPickImageActivity(getActivity());
-                Intent intent= new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent,IMAGE_REGUEST);
+                mDialog.show();
+                select_photo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent= new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(intent,IMAGE_REGUEST);
+                        mDialog.cancel();
+                    }
+                });
+
+                remove_photo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        image_profile.setImageResource(R.drawable.profile_holder);
+                        mDialog.cancel();
+                    }
+                });
+            }
+        });
+
+        btn_change_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                CropImage.startPickImageActivity(getActivity());
+                mDialog.show();
+                select_photo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent= new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        mDialog.cancel();
+                    }
+                });
+
+                remove_photo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        image_profile.setImageResource(R.drawable.profile_holder);
+                        mDialog.cancel();
+                    }
+                });
+            }
+        });
+
+        dialog_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.cancel();
             }
         });
 
@@ -147,6 +222,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UsernameActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -155,6 +231,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ShowNumberActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -163,6 +240,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BioActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -188,18 +266,20 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                User users = dataSnapshot.getValue(User.class);
-                Editusername.setText(users.getUsername());
-                tv_username.setText(users.getUsername());
-                myPhoneNumner.setText(users.getPhone());
-                myBio.setText(users.getBio());
-                tashieLoader.setVisibility(View.GONE);
-                if (users.getImageUrl().equals("default")) {
-                    image_profile.setImageResource(R.drawable.profile_holder);
-                } else {
-                    Glide.with(getActivity()).load(users.getImageUrl()).into(image_profile);
+                if (isAdded()){
+                    User users = dataSnapshot.getValue(User.class);
+                    Editusername.setText(users.getUsername());
+                    tv_username.setText(users.getUsername());
+                    myPhoneNumner.setText(users.getPhone());
+                    myBio.setText(users.getBio());
+                    tashieLoader.setVisibility(View.GONE);
+                    if (users.getImageUrl().equals("default")) {
+                        image_profile.setImageResource(R.drawable.profile_holder);
+                    } else {
+                        Glide.with(getActivity()).load(users.getImageUrl()).into(image_profile);
+                    }
+                    mDialog.cancel();
                 }
-
             }
 
             @Override

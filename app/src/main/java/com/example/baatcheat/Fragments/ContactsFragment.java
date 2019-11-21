@@ -112,6 +112,7 @@ public class ContactsFragment extends Fragment {
                 backtonormal.setVisibility(View.VISIBLE);
                 searchbar.setVisibility(View.VISIBLE);
                 btn_search.setVisibility(View.GONE);
+                searchbar.requestFocus();
             }
         });
 
@@ -122,6 +123,8 @@ public class ContactsFragment extends Fragment {
                 backtonormal.setVisibility(View.GONE);
                 searchbar.setVisibility(View.GONE);
                 btn_search.setVisibility(View.VISIBLE);
+                searchbar.clearFocus();
+                filter("");
             }
         });
 
