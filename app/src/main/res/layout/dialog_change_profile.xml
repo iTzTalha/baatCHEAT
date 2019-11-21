@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:text="Choose photo"
@@ -29,14 +29,17 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24sp"
                 android:src="@drawable/picture"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="25dp"/>
 
             <TextView
                 android:id="@+id/dialog_delete"
@@ -46,7 +49,7 @@
                 android:text="Select photo"
                 android:textColor="#080708"
                 android:textSize="18sp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="35dp"/>
 
         </LinearLayout>
 
@@ -56,15 +59,18 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_marginBottom="10dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/delete"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="25dp"/>
 
             <TextView
                 android:id="@+id/dialog_photo"
@@ -74,7 +80,7 @@
                 android:text="Remove photo"
                 android:textColor="#e50000"
                 android:textSize="18sp"
-                android:layout_marginStart="16dp" />
+                android:layout_marginStart="35dp" />
 
         </LinearLayout>
 

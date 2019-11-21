@@ -90,6 +90,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
                 dialog_username.setText(users.getUsername());
                 dialog_phone.setText(users.getBio());
+                if (users.getImageUrl().equals("default")){
+                    dialog_imageProfile.setImageResource(R.drawable.profile_holder);
+                }else {
+                    Glide.with(mContext).load(users.getImageUrl()).into(dialog_imageProfile);
+                }
                 mDialog.show();
 
                 normalchat.setOnClickListener(new View.OnClickListener() {

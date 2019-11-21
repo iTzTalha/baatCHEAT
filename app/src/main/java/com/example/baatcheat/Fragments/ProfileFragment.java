@@ -179,7 +179,20 @@ public class ProfileFragment extends Fragment {
                 remove_photo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        image_profile.setImageResource(R.drawable.profile_holder);
+                       final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                       reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                               HashMap<String, Object> hashMap = new HashMap<>();
+                               hashMap.put("imageUrl", "default");
+                               reference.updateChildren(hashMap);
+                           }
+
+                           @Override
+                           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                           }
+                       });
                         mDialog.cancel();
                     }
                 });
@@ -204,7 +217,20 @@ public class ProfileFragment extends Fragment {
                 remove_photo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        image_profile.setImageResource(R.drawable.profile_holder);
+                        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("imageUrl", "default");
+                                reference.updateChildren(hashMap);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         mDialog.cancel();
                     }
                 });
