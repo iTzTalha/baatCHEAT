@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/callsFragment"
-        android:name="com.example.baatcheat.Fragments.CallsFragment"
+        android:name="com.example.baatcheat.Fragments.DiscoverFragment"
         android:label="fragment_calls"
-        tools:layout="@layout/fragment_calls" />
+        tools:layout="@layout/fragment_discover" />
     <fragment
         android:id="@+id/contactsFragment"
         android:name="com.example.baatcheat.Fragments.ContactsFragment"

@@ -1,290 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context=".Fragments.ProfileFragment">
 
-    <LinearLayout
-        android:id="@+id/profileContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_profile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@drawable/profile_holder_" />
-
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/roboto_bold"
-            android:textColor="#080708"
-            android:textSize="25sp" />
-    </LinearLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_profile_border"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:src="@drawable/profile_border" />
-
-    <ImageView
-        android:id="@+id/btn_change_profile"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignEnd="@+id/image_profile_border"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/change_profile" />
-
-    <LinearLayout
-        android:id="@+id/profileInfo_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profileContainer"
-        android:layout_marginTop="25dp"
-        android:orientation="vertical"
-        android:paddingTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.9"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingStart="16dp"
-            android:text="Profile"
-            android:textColor="#A8A8A8"
-            android:textSize="15sp" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <LinearLayout
-            android:id="@+id/username"
-            android:layout_width="match_parent"
+            android:id="@+id/profileContainer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_profile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/profile_holder_" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="#080708"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_profile_border"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="65dp"
+            android:src="@drawable/profile_border" />
+
+        <ImageView
+            android:id="@+id/btn_change_profile"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignEnd="@+id/image_profile_border"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/change_profile" />
+
+        <LinearLayout
+            android:id="@+id/profileInfo_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profileContainer"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.9"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingStart="16dp"
+                android:text="Profile"
+                android:textColor="#A8A8A8"
+                android:textSize="15sp" />
+
             <LinearLayout
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fixedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text=""
+                        android:textColor="#080708"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/Editusername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="#080708"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/fixedText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="1.5dp"
                     android:fontFamily="@font/roboto"
-                    android:text=""
-                    android:textColor="#080708"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/Editusername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="#080708"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="1.5dp"
-                android:fontFamily="@font/roboto"
-                android:text="Username"
-                android:textSize="13.5sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:alpha="0.5"
-                android:background="#a8a8a8" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/myphonenumner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/roboto"
-                android:textColor="#080708"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="1.5dp"
-                android:fontFamily="@font/roboto"
-                android:text="Phone"
-                android:textSize="13.5sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:alpha="0.5"
-                android:background="#a8a8a8" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/bio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical"
-            android:paddingBottom="7dp">
-
-            <androidx.emoji.widget.EmojiTextView
-                android:id="@+id/myBio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/roboto"
-                android:hint="Bio"
-                android:maxLines="1"
-                android:textColor="#080708"
-                android:textColorHint="#080708"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="1.5dp"
-                android:fontFamily="@font/roboto"
-                android:text="Add your description here"
-                android:textSize="13.5sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/Devider"
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_below="@+id/profileInfo_container"
-        android:layout_marginTop="-1dp"
-        android:background="@drawable/devider_layout_gray" />
-
-    <LinearLayout
-        android:id="@+id/profileInfo_container2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Devider"
-        android:orientation="vertical"
-        android:paddingTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.9"
-            android:fontFamily="@font/roboto_medium"
-            android:paddingStart="16dp"
-            android:text="Actions"
-            android:textColor="#A8A8A8"
-            android:textSize="15sp" />
-
-
-        <!--        Second Layout-->
-
-
-        <LinearLayout
-            android:id="@+id/logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/exit" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:orientation="vertical"
-                android:paddingTop="13.5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/roboto"
-                    android:text="Logout"
-                    android:textColor="#080708"
-                    android:textSize="16sp" />
+                    android:text="Username"
+                    android:textSize="13.5sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.4dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:alpha="0.5"
                     android:background="#a8a8a8" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/myphonenumner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="#080708"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1.5dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Phone"
+                    android:textSize="13.5sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:alpha="0.5"
+                    android:background="#a8a8a8" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:paddingBottom="7dp">
+
+                <androidx.emoji.widget.EmojiTextView
+                    android:id="@+id/myBio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto"
+                    android:hint="Bio"
+                    android:maxLines="1"
+                    android:textColor="#080708"
+                    android:textColorHint="#080708"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1.5dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Add your description here"
+                    android:textSize="13.5sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+        <View
+            android:id="@+id/Devider"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_below="@+id/profileInfo_container"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/devider_layout_gray" />
 
-    <com.agrawalsuneet.dotsloader.loaders.TashieLoader
-        android:id="@+id/lazyLoader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        app:tashieloader_animDelay="200"
-        app:tashieloader_animDur="300"
-        app:tashieloader_dotsColor="@color/colorPrimary"
-        app:tashieloader_dotsDist="8dp"
-        app:tashieloader_dotsRadius="8dp"
-        app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
-        app:tashieloader_noOfDots="3" />
+        <LinearLayout
+            android:id="@+id/profileInfo_container2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Devider"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.9"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingStart="16dp"
+                android:text="Actions"
+                android:textColor="#A8A8A8"
+                android:textSize="15sp" />
+
+
+            <!--        Second Layout-->
+
+
+            <LinearLayout
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/exit" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical"
+                    android:paddingTop="13.5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/roboto"
+                        android:text="Logout"
+                        android:textColor="#080708"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:layout_marginTop="12dp"
+                        android:alpha="0.5"
+                        android:background="#a8a8a8" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.agrawalsuneet.dotsloader.loaders.TashieLoader
+            android:id="@+id/lazyLoader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:tashieloader_animDelay="200"
+            app:tashieloader_animDur="300"
+            app:tashieloader_dotsColor="@color/colorPrimary"
+            app:tashieloader_dotsDist="8dp"
+            app:tashieloader_dotsRadius="8dp"
+            app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
+            app:tashieloader_noOfDots="3" />
+    </RelativeLayout>
+</ScrollView>

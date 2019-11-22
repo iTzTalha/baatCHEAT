@@ -7,17 +7,27 @@ public class User {
     private String bio;
     private String imageUrl;
     private String status;
+    private String search;
 
-    public User(String id, String username, String phone, String bio, String imageUrl, String status) {
+    public User(String id, String username, String phone, String bio, String imageUrl, String status, String search) {
         this.id = id;
         this.username = username;
         this.phone = phone;
         this.bio = bio;
         this.imageUrl = imageUrl;
         this.status = status;
+        this.search = search;
     }
 
     public User() {
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 
     public String getStatus() {

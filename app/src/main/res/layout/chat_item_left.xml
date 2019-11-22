@@ -18,6 +18,7 @@
         android:paddingTop="8dp"
         android:paddingEnd="15dp"
         android:paddingBottom="8dp"
+        android:textColor="#080708"
         android:text="helowwwwwwwwwwwww"/>
 
     <ImageView

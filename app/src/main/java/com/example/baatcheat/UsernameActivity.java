@@ -136,6 +136,7 @@ public class UsernameActivity extends AppCompatActivity {
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("username", username);
+        hashMap.put("search",username.toLowerCase());
 
         reference.updateChildren(hashMap);
     }

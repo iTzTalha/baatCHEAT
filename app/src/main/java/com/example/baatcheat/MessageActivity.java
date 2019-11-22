@@ -100,8 +100,6 @@ public class MessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String userid = intent.getStringExtra("userid");
 
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -241,7 +239,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private void seenMessage(final String userid) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.addValueEventListener(new ValueEventListener() {
+        SeenListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -300,5 +298,11 @@ public class MessageActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(SeenListener);
         status("offline");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }
