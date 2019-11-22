@@ -34,6 +34,36 @@
                 android:textColor="#080708"
                 android:textSize="25sp" />
 
+            <RelativeLayout
+                android:id="@+id/unreadLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/text1"
+                android:layout_marginStart="10dp"
+                android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/unreadbubble"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/phone_next_empty"
+                android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="16sp"
+                    android:id="@+id/unreadText"/>
+
+            </RelativeLayout>
+
             <ImageView
                 android:id="@+id/searchcontacts"
                 android:layout_width="wrap_content"
@@ -42,7 +72,6 @@
                 android:layout_marginStart="240dp"
                 android:background="?actionBarItemBackground"
                 android:src="@drawable/search" />
-
 
             <ImageView
                 android:id="@+id/btn_contacts"

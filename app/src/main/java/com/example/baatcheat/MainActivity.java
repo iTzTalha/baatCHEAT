@@ -1,5 +1,6 @@
 package com.example.baatcheat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -9,11 +10,15 @@ import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.baatcheat.Model.Chat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         getPermissions();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
     }
 
     private void getPermissions() {

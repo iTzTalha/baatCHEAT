@@ -68,6 +68,8 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference reference;
     ValueEventListener SeenListener;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +99,7 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         final String userid = intent.getStringExtra("userid");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
@@ -195,12 +197,12 @@ public class MessageActivity extends AppCompatActivity {
         reference.child("Chats").push().setValue(hashMap);
 
         //Add user to chat fragment
-        final DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid()).child(receiver);
-        reference1.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference chatref = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid()).child(receiver);
+        chatref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
-                    reference1.child("id").setValue(receiver);
+                    chatref.child("id").setValue(receiver);
                 }
             }
 

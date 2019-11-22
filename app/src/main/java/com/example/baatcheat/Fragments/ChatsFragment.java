@@ -25,10 +25,12 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.baatcheat.Adapter.DisplayUserAdapter;
+import com.example.baatcheat.Model.Chat;
 import com.example.baatcheat.Model.ChatList;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
@@ -51,6 +53,8 @@ public class ChatsFragment extends Fragment {
     private ImageView backtonormal, search, btn_contacts;
     private TextView text1;
     private EditText searchbar;
+    private RelativeLayout unreadLayout;
+    private TextView unreadText;
 
     RecyclerView recyclerView;
     DisplayUserAdapter userAdapter;
@@ -73,6 +77,8 @@ public class ChatsFragment extends Fragment {
         searchbar = view.findViewById(R.id.searchbar);
         backtonormal = view.findViewById(R.id.backtonormal);
         text1 = view.findViewById(R.id.text1);
+        unreadLayout = view.findViewById(R.id.unreadLayout);
+        unreadText = view.findViewById(R.id.unreadText);
         search = view.findViewById(R.id.searchcontacts);
         btn_contacts = view.findViewById(R.id.btn_contacts);
 
@@ -165,12 +171,40 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ChatList chatList = snapshot.getValue(ChatList.class);
                     userList.add(chatList);
 
                 }
                 chatList();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        //Unread Messages
+        DatabaseReference unreadref = FirebaseDatabase.getInstance().getReference("Chats");
+        unreadref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int unread = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if ((chat.getReceiver().equals(firebaseUser.getUid()) && (!chat.isSeen()))) {
+                        unread++;
+                    }
+                }
+
+                if (unread == 0) {
+                    unreadLayout.setVisibility(View.GONE);
+                } else {
+                    unreadLayout.setVisibility(View.VISIBLE);
+                    unreadText.setText(String.valueOf(unread));
+                }
+
             }
 
             @Override
@@ -192,15 +226,15 @@ public class ChatsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
 
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    for (ChatList  chatList : userList){
-                        if (user.getId().equals(chatList.getId())){
+                    for (ChatList chatList : userList) {
+                        if (user.getId().equals(chatList.getId())) {
                             mUsers.add(user);
                         }
                     }
                 }
-                userAdapter = new DisplayUserAdapter(getContext(),mUsers,true);
+                userAdapter = new DisplayUserAdapter(getContext(), mUsers, true);
                 recyclerView.setAdapter(userAdapter);
             }
 
@@ -212,12 +246,12 @@ public class ChatsFragment extends Fragment {
 
     }
 
-    void filter(String text){
+    void filter(String text) {
         List<User> temp = new ArrayList();
-        for(User d: mUsers){
+        for (User d : mUsers) {
             //or use .equal(text) with you want equal match
             //use .toLowerCase() for better matches
-            if(d.getUsername().toLowerCase().contains(text.toLowerCase())){
+            if (d.getUsername().toLowerCase().contains(text.toLowerCase())) {
                 temp.add(d);
             }
         }
