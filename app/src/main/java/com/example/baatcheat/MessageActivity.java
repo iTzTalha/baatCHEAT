@@ -296,6 +296,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.removeEventListener(SeenListener);
         status("offline");
     }

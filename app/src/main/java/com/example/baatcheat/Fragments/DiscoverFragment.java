@@ -134,11 +134,15 @@ public class DiscoverFragment extends Fragment {
                 if (search.getText().toString().equals("")) {
 
                     mUser.clear();
-
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         User user = snapshot.getValue(User.class);
-                        mUser.add(user);
+                        if (user.getUsername().equals(user.getPhone())){
+                            mUser.remove(user);
+                        }else {
+                            mUser.add(user);
+                        }
+
                     }
                     userAdapter = new UserAdapter(getContext(), mUser,false);
                     recyclerView.setAdapter(userAdapter);
