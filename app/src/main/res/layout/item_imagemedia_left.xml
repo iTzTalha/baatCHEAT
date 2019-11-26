@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_width="300dp"
+    android:paddingStart="8dp"
+    android:paddingTop="3dp"
+    android:paddingRight="8dp">
+
+    <ImageView
+        android:id="@+id/imageMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="100sp"
+        android:background="@drawable/imagemediabubble_left"
+        android:src="@mipmap/ic_launcher" />
+
+</LinearLayout>

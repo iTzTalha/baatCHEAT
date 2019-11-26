@@ -8,8 +8,9 @@ public class User {
     private String imageUrl;
     private String status;
     private String search;
+    private String contactName;
 
-    public User(String id, String username, String phone, String bio, String imageUrl, String status, String search) {
+    public User(String id, String username, String phone, String bio, String imageUrl, String status, String search,String contactName) {
         this.id = id;
         this.username = username;
         this.phone = phone;
@@ -17,9 +18,18 @@ public class User {
         this.imageUrl = imageUrl;
         this.status = status;
         this.search = search;
+        this.contactName = contactName;
     }
 
     public User() {
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
     public String getSearch() {

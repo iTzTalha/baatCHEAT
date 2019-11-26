@@ -28,11 +28,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
+import com.example.baatcheat.Adapter.DisplayUserAdapter;
 import com.example.baatcheat.Adapter.UserAdapter;
 import com.example.baatcheat.CountryToPhonePrefix;
+import com.example.baatcheat.Model.ChatList;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +46,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,8 +56,8 @@ import java.util.List;
  */
 public class ContactsFragment extends Fragment {
 
-    private TextView permissionText,text5;
-    private ImageView backtonormal,btn_search;
+    private TextView permissionText, text5;
+    private ImageView backtonormal, btn_search;
     private EditText searchbar;
 
     private RecyclerView recyclerView;
@@ -59,6 +65,7 @@ public class ContactsFragment extends Fragment {
     private List<User> userList, contactList;
 
     FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
 
     TashieLoader tashieLoader;
 
@@ -92,6 +99,7 @@ public class ContactsFragment extends Fragment {
         recyclerView.setAdapter(userAdapter);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getPermissions();
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS)
@@ -165,7 +173,7 @@ public class ContactsFragment extends Fragment {
             if (!String.valueOf(phone.charAt(0)).equals("+")) {
                 phone = ISOPrefix + phone;
             }
-            User mContacts = new User("", name, phone, "","","","");
+            User mContacts = new User("", name, phone, "", "", "", "","");
             contactList.add(mContacts);
             getUserDetails(mContacts);
         }
@@ -187,7 +195,7 @@ public class ContactsFragment extends Fragment {
                             name = childSnapshot.child("username").getValue().toString();
 
 
-                        User mUser = new User(childSnapshot.getKey(), name, phone, childSnapshot.child("bio").getValue().toString(),childSnapshot.child("imageUrl").getValue().toString(),childSnapshot.child("status").getValue().toString(),"");
+                        User mUser = new User(childSnapshot.getKey(), name, phone, childSnapshot.child("bio").getValue().toString(), childSnapshot.child("imageUrl").getValue().toString(), childSnapshot.child("status").getValue().toString(), "","");
                         if (name.equals(phone))
                             for (User mContactIterator : contactList) {
                                 if (mContactIterator.getPhone().equals(mUser.getPhone())) {
@@ -195,9 +203,11 @@ public class ContactsFragment extends Fragment {
                                 }
                             }
 
+
                         userList.add(mUser);
                         userAdapter.notifyDataSetChanged();
                         tashieLoader.setVisibility(View.GONE);
+
                         return;
                     }
                 }
@@ -228,16 +238,17 @@ public class ContactsFragment extends Fragment {
         }
     }
 
-    void filter(String text){
+    void filter(String text) {
         List<User> temp = new ArrayList();
-        for(User d: userList){
+        for (User d : userList) {
             //or use .equal(text) with you want equal match
             //use .toLowerCase() for better matches
-            if(d.getUsername().toLowerCase().contains(text.toLowerCase())){
+            if (d.getUsername().toLowerCase().contains(text.toLowerCase())) {
                 temp.add(d);
             }
         }
         //update recyclerview
         userAdapter.updateList(temp);
     }
+
 }

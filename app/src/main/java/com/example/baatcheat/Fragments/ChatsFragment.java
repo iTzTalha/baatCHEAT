@@ -3,6 +3,8 @@ package com.example.baatcheat.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -43,6 +46,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -59,7 +64,7 @@ public class ChatsFragment extends Fragment {
     RecyclerView recyclerView;
     DisplayUserAdapter userAdapter;
     List<User> mUsers;
-    List<ChatList> userList;
+    List<ChatList> userList,displayList;
 
     FirebaseUser firebaseUser;
 
@@ -258,4 +263,5 @@ public class ChatsFragment extends Fragment {
         //update recyclerview
         userAdapter.updateList(temp);
     }
+
 }

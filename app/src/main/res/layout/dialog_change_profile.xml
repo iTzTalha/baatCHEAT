@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/picture"
-                android:layout_marginStart="25dp"/>
+                android:layout_marginStart="20dp"/>
 
             <TextView
                 android:id="@+id/dialog_delete"

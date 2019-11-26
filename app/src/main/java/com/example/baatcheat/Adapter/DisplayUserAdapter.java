@@ -1,10 +1,14 @@
 package com.example.baatcheat.Adapter;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.baatcheat.MessageActivity;
 import com.example.baatcheat.Model.Chat;
+import com.example.baatcheat.Model.ChatList;
 import com.example.baatcheat.Model.User;
 import com.example.baatcheat.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -71,7 +78,7 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
             Glide.with(mContext).load(users.getImageUrl()).into(holder.image_Profile);
         }
         if (isChat) {
-            lastMessage(users.getId(),holder.lastMsg);
+            lastMessage(users.getId(), holder.lastMsg);
             if (users.getStatus().equals("online")) {
                 holder.img_on.setVisibility(View.VISIBLE);
             } else {
@@ -186,4 +193,5 @@ public class DisplayUserAdapter extends RecyclerView.Adapter<DisplayUserAdapter.
             }
         });
     }
+
 }
