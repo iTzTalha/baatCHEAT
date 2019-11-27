@@ -1,6 +1,7 @@
 package com.example.baatcheat.Adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,11 @@ import com.example.baatcheat.Model.ImageMedia;
 import com.example.baatcheat.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.stfalcon.frescoimageviewer.ImageViewer;
+import com.stfalcon.imageviewer.StfalconImageViewer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -50,8 +54,8 @@ public class ImageMediaAdapter extends RecyclerView.Adapter<ImageMediaAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageMediaAdapter.ViewHolder holder, int position) {
-        ImageMedia imageMedia = imageMediaList.get(position);
+    public void onBindViewHolder(@NonNull final ImageMediaAdapter.ViewHolder holder, final int position) {
+        final ImageMedia imageMedia = imageMediaList.get(position);
         Glide.with(mContext).load(imageMedia.getImageUrl()).into(holder.imageMedia);
     }
 

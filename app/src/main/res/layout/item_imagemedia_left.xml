@@ -10,8 +10,7 @@
     <ImageView
         android:id="@+id/imageMedia"
         android:layout_width="wrap_content"
-        android:layout_height="100sp"
-        android:background="@drawable/imagemediabubble_left"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_height="250dp"
+        android:background="@drawable/imagemediabubble_left" />
 
 </LinearLayout>

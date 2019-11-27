@@ -64,22 +64,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/bar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view1_media"
+        android:id="@+id/recycler_view_media"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom"
-        android:layout_below="@+id/bar" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recycler_view1" />
 
     <RelativeLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
         android:padding="10dp">
 
         <ImageButton

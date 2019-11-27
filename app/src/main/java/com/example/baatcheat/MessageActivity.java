@@ -57,7 +57,9 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -101,6 +103,7 @@ public class MessageActivity extends AppCompatActivity {
         EmojiCompat.init(config);
         setContentView(R.layout.activity_message);
 
+
         relativeLayout = findViewById(R.id.relativeLayout);
 
         profile_image = findViewById(R.id.profile_image);
@@ -125,12 +128,11 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //Recycler view media
-        recyclerView_media = findViewById(R.id.recycler_view1);
+        recyclerView_media = findViewById(R.id.recycler_view_media);
         recyclerView_media.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManagermedia = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManagermedia.setStackFromEnd(true);
-        recyclerView_media.setLayoutManager(linearLayoutManagermedia);
+        LinearLayoutManager linearLayoutManager_media = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager_media.setStackFromEnd(true);
+        recyclerView_media.setLayoutManager(linearLayoutManager_media);
 
         intent = getIntent();
         final String userid = intent.getStringExtra("userid");
@@ -286,7 +288,7 @@ public class MessageActivity extends AppCompatActivity {
                         imageMediaList.add(imageMedia);
                     }
                     imageMediaAdapter = new ImageMediaAdapter(MessageActivity.this, imageMediaList);
-                    recyclerView_media.setAdapter(imageMediaAdapter);
+                    recyclerView.setAdapter(imageMediaAdapter);
                 }
             }
 
@@ -341,11 +343,24 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void status(String status) {
+    private void status (String status){
+
+        String saveCurrentTime, saveCurrentDate;
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd,yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
+        hashMap.put("status",status);
+        hashMap.put("Time", saveCurrentTime);
+        hashMap.put("Date",saveCurrentDate);
 
         reference.updateChildren(hashMap);
     }
