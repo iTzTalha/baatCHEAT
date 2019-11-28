@@ -34,7 +34,8 @@
             android:layout_marginTop="16dp"
             android:layout_toEndOf="@+id/showmessage"
             android:text="time"
-            android:textColor="#B2B2B2" />
+            android:textColor="#B2B2B2"
+            android:textSize="12sp"/>
 
     </RelativeLayout>
 

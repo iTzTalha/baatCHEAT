@@ -4,11 +4,11 @@
     android:id="@+id/mLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <LinearLayout
         android:id="@+id/useritem"
@@ -21,10 +21,10 @@
             android:id="@+id/image_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/profile_holder_"
             android:layout_gravity="center_vertical"
+            android:background="@drawable/profile_holder_"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,24 +42,26 @@
                 android:text="username"
                 android:textColor="#080708"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/phoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto" />
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto"
+                android:maxLines="1" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_on"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:id="@+id/img_on"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="34dp"
-        android:src="@drawable/img_on"/>
+        android:layout_marginTop="32dp"
+        android:src="@drawable/img_on" />
 
 </RelativeLayout>
