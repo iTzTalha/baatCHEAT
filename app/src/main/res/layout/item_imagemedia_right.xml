@@ -14,9 +14,10 @@
 
         <ImageView
             android:id="@+id/imageMedia"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_alignParentEnd="true"
+            android:scaleType="centerCrop"
             android:background="@drawable/imagemediabubble_right"/>
     </RelativeLayout>
 

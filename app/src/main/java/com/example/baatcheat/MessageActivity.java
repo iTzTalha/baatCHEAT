@@ -86,6 +86,8 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference reference;
     ValueEventListener SeenListener;
 
+    String saveCurrentTime, saveCurrentDate;
+
     Intent intent;
 
     private static final int PICK_IMAGE_INTENT = 1;
@@ -103,14 +105,14 @@ public class MessageActivity extends AppCompatActivity {
         EmojiCompat.init(config);
         setContentView(R.layout.activity_message);
 
-
+        //Layout inits
         relativeLayout = findViewById(R.id.relativeLayout);
 
+        //Activity items init
         profile_image = findViewById(R.id.profile_image);
         back = findViewById(R.id.back);
         username = findViewById(R.id.username);
         status = findViewById(R.id.status);
-
         sendmsg = findViewById(R.id.sendmsg);
         btn_send = findViewById(R.id.btn_send);
         btn_sendImage = findViewById(R.id.btn_sendImage);
@@ -118,10 +120,21 @@ public class MessageActivity extends AppCompatActivity {
         btn_send.setAlpha((float) 0.5);
         btn_send.setBackgroundResource(R.drawable.btn_send_disabled);
 
-
+        //Firebase init
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference();
 
+
+        //For Date and Time
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd,yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
+        //Recycler views
         recyclerView = findViewById(R.id.recycler_view1);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -135,6 +148,7 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView_media.setLayoutManager(linearLayoutManager_media);
 
         intent = getIntent();
+
         final String userid = intent.getStringExtra("userid");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
@@ -227,6 +241,8 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("seen", false);
+        hashMap.put("data", saveCurrentDate);
+        hashMap.put("time", saveCurrentTime);
 
         reference.child("Chats").push().setValue(hashMap);
 

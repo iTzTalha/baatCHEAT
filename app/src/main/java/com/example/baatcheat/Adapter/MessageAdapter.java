@@ -47,17 +47,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         holder.showmessage.setText(chat.getMessage());
 
+        holder.messageTime.setText(chat.getTime());
+
         if (position == mChat.size()-1){
             if (chat.isSeen()){
-                holder.ok_send.setVisibility(View.GONE);
-                holder.ok_seen.setVisibility(View.VISIBLE);
+                holder.ok_send.setImageResource(R.drawable.ok_seen);
             }else {
-                holder.ok_send.setVisibility(View.VISIBLE);
-                holder.ok_seen.setVisibility(View.GONE);
+                holder.ok_send.setImageResource(R.drawable.ok_send);
             }
         }else {
             holder.ok_send.setVisibility(View.GONE);
-            holder.ok_seen.setVisibility(View.GONE);
         }
 
     }
@@ -69,9 +68,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView showmessage;
+        public TextView showmessage,messageTime;
         public CircleImageView image_Profile;
-        public ImageView ok_send,ok_seen;
+        public ImageView ok_send;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,7 +78,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             showmessage = itemView.findViewById(R.id.showmessage);
             image_Profile = itemView.findViewById(R.id.image_profile);
             ok_send = itemView.findViewById(R.id.ok_send);
-            ok_seen = itemView.findViewById(R.id.ok_seen);
+            messageTime = itemView.findViewById(R.id.messageTime);
         }
     }
 

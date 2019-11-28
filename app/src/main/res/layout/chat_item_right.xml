@@ -3,51 +3,65 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingRight="8dp"
     android:paddingStart="8dp"
-    android:paddingTop="3dp">
+    android:paddingTop="4dp"
+    android:paddingRight="8dp">
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:background="@null">
 
-
-        <TextView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:id="@+id/showmessage"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="@drawable/chatbubble_right"
-            android:paddingStart="15dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="30dp"
-            android:paddingBottom="8dp"
-            android:text="hellowwwwwwwwwwwww"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/showmessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="15dp"
+                android:text="123"
+                android:textColor="#fff"
+                android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/ok_send"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ok_send"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="6dp"
-            android:visibility="gone"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@null"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="6dp">
 
-        <ImageView
-            android:id="@+id/ok_seen"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ok_seen"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="6dp"
-            android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/messageTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="3dp"
+                    android:paddingStart="15dp"
+                    android:text="time"
+                    android:textColor="#79B6FF" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/ok_send"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/ok_send" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
