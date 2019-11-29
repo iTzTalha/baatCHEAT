@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
         mDialog = new Dialog(getActivity());
         mDialog.setContentView(R.layout.dialog_change_profile);

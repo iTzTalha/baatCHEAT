@@ -91,7 +91,6 @@ public class MessageActivity extends AppCompatActivity {
     Intent intent;
 
     private static final int PICK_IMAGE_INTENT = 1;
-    RecyclerView recyclerView_media;
     ImageMediaAdapter imageMediaAdapter;
 
     private Uri mImageUri;
@@ -122,7 +121,7 @@ public class MessageActivity extends AppCompatActivity {
 
         //Firebase init
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference().child("Images");
 
 
         //For Date and Time
@@ -140,12 +139,6 @@ public class MessageActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerView_media = findViewById(R.id.recycler_view_media);
-        recyclerView_media.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager_media = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager_media.setStackFromEnd(true);
-        recyclerView_media.setLayoutManager(linearLayoutManager_media);
 
         intent = getIntent();
 

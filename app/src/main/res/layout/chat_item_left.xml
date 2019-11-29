@@ -11,31 +11,39 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/chatbubble_left">
+        android:background="@drawable/chatbubble_left"
+        android:paddingBottom="5dp">
 
-        <TextView
-            android:id="@+id/showmessage"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:paddingStart="15dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="8dp"
-            android:text="helowwwwwwwwwwwww"
-            android:textColor="#080708"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/messageTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
-            android:layout_toEndOf="@+id/showmessage"
-            android:text="time"
-            android:textColor="#B2B2B2"
-            android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/showmessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="15dp"
+                android:text="123"
+                android:textColor="#080708"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/messageTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/showmessage"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_alignEnd="@+id/showmessage"
+                android:text="time"
+                android:layout_marginTop="1dp"
+                android:textColor="#B2B2B2"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

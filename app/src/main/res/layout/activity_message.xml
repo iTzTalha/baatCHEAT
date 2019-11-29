@@ -64,14 +64,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bar" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_media"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recycler_view1" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar"
+        android:layout_above="@+id/bottom"/>
 
     <RelativeLayout
         android:id="@+id/bottom"

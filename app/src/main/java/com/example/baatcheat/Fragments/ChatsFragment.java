@@ -64,7 +64,7 @@ public class ChatsFragment extends Fragment {
     RecyclerView recyclerView;
     DisplayUserAdapter userAdapter;
     List<User> mUsers;
-    List<ChatList> userList,displayList;
+    List<ChatList> userList;
 
     FirebaseUser firebaseUser;
 
