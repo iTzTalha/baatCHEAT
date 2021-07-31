@@ -26,6 +26,6 @@ A clone of the WhatsApp/Facebook Messenger app made with Android Studio and Fire
 * Android Development
 * Firebase Phone Authentication
 * Firebase Database
-* Firebase Database
+* Firebase Cloud-Storage
 * Firebase Messaging
 * Firebase CrashReporting
