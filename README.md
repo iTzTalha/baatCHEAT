@@ -21,3 +21,11 @@ A clone of the WhatsApp/Facebook Messenger app made with Android Studio and Fire
   * Notification when you have a new message
   * Notification when you have a new friend request
   * Notification when someone accepts your request
+
+# What I Learned
+* Android Development
+* Firebase Phone Authentication
+* Firebase Database
+* Firebase Database
+* Firebase Messaging
+* Firebase CrashReporting
