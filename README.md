@@ -4,7 +4,7 @@
 <h1 align="center">baatCHEAT</h1>
 A clone of the WhatsApp / Facebook Messenger app made with Android Studio and Firebase / Firestore.
 
-# Features
+# Features 🔥
 * Messaging
   * Send and Receive messages with users
   * Send pictures
@@ -25,7 +25,7 @@ A clone of the WhatsApp / Facebook Messenger app made with Android Studio and Fi
   * Notification when you have a new friend request
   * Notification when someone accepts your request
 
-# What I Learned
+# What I Learned 📙
 * Android Development
 * Firebase Phone Authentication
 * Firebase Database
