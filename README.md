@@ -29,3 +29,6 @@ A clone of the WhatsApp / Facebook Messenger app made with Android Studio and Fi
 * Firebase Cloud-Storage
 * Firebase Messaging
 * Firebase CrashReporting
+
+# Show Your Support
+Give a ⭐️ if you like this project!
