@@ -1,4 +1,7 @@
-# baatCHEAT
+<p align="center">
+  <img src="https://image.flaticon.com/icons/png/512/906/906384.png" height="25%" width="25%">
+</p>
+<h1 align="center">baatCHEAT</h1>
 A clone of the WhatsApp / Facebook Messenger app made with Android Studio and Firebase / Firestore.
 
 # Features
